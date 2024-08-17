@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    tty: true
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    volumes:
+      - .:/myapp
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: root
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: myapp_development
+
+  db:
+    image: mysql:8.0.37
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: myapp_development
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/mysql/volumes:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
