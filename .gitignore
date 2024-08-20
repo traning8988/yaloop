@@ -1,0 +1,2 @@
+# Ignore MySQL data volumes
+db/mysql/volumes/
