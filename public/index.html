@@ -1,16 +1,102 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="jp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web App</title>
+    <title>yaloop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Welcome to My Web App</h1>
-    <div id="content"></div>
-    <button id="loadData">データをロード</button>
 
-    <script src="script.js"></script>
+<body>
+    <header>
+        <div class="top">
+            <h1 class="logo">Yaloop</h1>
+
+            <div class="navi">
+                <a href="#">Link</a>
+            </div>
+        </div>
+    </header>
+    <main class="app">
+        <div class="container">
+
+            <div class="left-side">
+                <!-- タイマー -->
+                <div class="timer-container">
+                    <div class="timer-input">
+                        <input type="text" class="task-input" placeholder="Add your next mission">
+                        <button class="timer-button">Start</button>
+                    </div>
+                    <div class="timer-display">
+                        <h1>00:00</h1>
+                    </div>
+                </div>
+                <!-- グラフ -->
+                <div class="graph-container">
+                    <h1>◀︎ 2024 / 7 ▶︎</h1>
+                    <div class="graph-display">
+                        <img src="img/graph-image.png" alt="">
+
+                    </div>
+                </div>
+            </div>
+            <div class="right-side">
+                <!-- 日報 -->
+                <div class="report-container">
+                    <div class="report-top">
+                        <p class="report-date">7/31</p>
+                        <p class="report-totaltime">学習時間: 7時間30分</p>
+                        <!-- <p class="report-totaltime">total time: 07:30</p> -->
+                    </div>
+                    <div class="report-tasks">
+                        <h2>できたこと</h2>
+                        <!-- <h2>Done</h2> -->
+                        <div class="report-task">
+                            <p class="task-title">HTML/CSS</p>
+                            <!-- <p class="task-time">02:00</p> -->
+                            <p class="task-time">2時間</p>
+                        </div>
+                        <div class="report-task">
+                            <p class="task-title">JavaScript</p>
+                            <!-- <p class="task-time">03:00</p> -->
+                            <p class="task-time">3時間</p>
+
+                        </div>
+                        <div class="report-task">
+                            <p class="task-title">ruby</p>
+                            <!-- <p class="task-time">02:30</p> -->
+                            <p class="task-time">2時間30分</p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="free-box">
+                        <p>良かった点</p><br>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        </p><br>
+                        <p>明日への決意</p><br>
+                        <p>
+                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p><br>
+                    </div>
+                    <div  class="submit-button">
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <small class="copyrights">team 2 </small>
+    </footer>
 </body>
+
 </html>
