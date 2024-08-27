@@ -12,4 +12,5 @@ group :development do
   gem 'rubocop-packaging', require: false
   gem 'rubocop-md', require: false
   gem 'webrick'
+  gem 'mysql2'
 end
