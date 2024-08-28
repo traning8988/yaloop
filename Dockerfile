@@ -11,4 +11,4 @@ ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 # 不要なキャッシュファイルを削除
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-CMD ["ruby", "webrick.rb"]
+CMD ["ruby", "server.rb"]
