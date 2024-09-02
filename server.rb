@@ -1,25 +1,41 @@
 require 'webrick'
+require 'listen'
 require 'json'
 
-sample_data = [
-  { id: 1, name: 'Item 1', description: 'This is the first item', duration: '01:00:00' },
-  { id: 2, name: 'Item 2', description: 'This is the second item', duration: '02:00:00' },
-  { id: 3, name: 'Item 3', description: 'This is the third item', duration: '03:00:00' }
-]
-
-duration = [
-  duration_hour: "02", duration_minute: "30", duration_second: "30"
-]
-
-server = WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => './public')
-
-server.mount_proc '/data' do |req, res|
-  res.body = duration.to_json
-  res['Content-Type'] = 'application/json'
+# duration.rbからデータを読み込む
+def load_duration
+  load 'duration.rb'
+  DURATION
 end
 
-trap 'INT' do 
-  server.shutdown 
+def start_server
+  server = WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => './public')
+
+  server.mount_proc '/data' do |req, res|
+    duration = load_duration
+    res.body = JSON.generate(duration)
+    res['Content-Type'] = 'application/json'
+  end
+
+  trap 'INT' do
+    server.shutdown
+  end
+
+  server.start
 end
 
-server.start
+# サーバー起動
+start_server
+
+# ファイル変更の監視
+listener = Listen.to('.') do |modified, added, removed|
+  if modified.any? || added.any? || removed.any?
+    puts "ファイルが変更されました。サーバーを再起動します..."
+    Process.kill('INT', Process.pid) # サーバーをシャットダウン
+    sleep(1) # 少し待機してから再起動
+    exec('ruby server.rb') # スクリプトを再実行
+  end
+end
+
+listener.start
+sleep
