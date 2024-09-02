@@ -4,9 +4,7 @@ def insert_dummy_data(client)
   begin
     # ユーザーデータの挿入
     users = [
-      { name: "阿川", email: "agawa@example.com" },
-      { name: "春樹", email: "haruki@example.com" },
-      { name: "中道", email: "nakamichi@example.com" }
+      { name: "阿川", email: "agawa@example.com" }
     ]
 
     users.each do |user|
