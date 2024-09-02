@@ -5,7 +5,7 @@ require 'json'
 # duration.rbからデータを読み込む
 def load_duration
   load 'duration.rb'
-  DURATION
+  $duration
 end
 
 def start_server
