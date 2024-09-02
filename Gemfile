@@ -13,4 +13,5 @@ group :development do
   gem 'rubocop-md', require: false
   gem 'webrick'
   gem 'mysql2'
+  gem 'listen'
 end
