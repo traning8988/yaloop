@@ -64,6 +64,7 @@ begin
   client = Database.client
 
   # テーブルの作成
+  Database.reset_tables
   Database.create_tables
 
   # 仮データの挿入

@@ -10,6 +10,22 @@ class Database
     )
   end
 
+  def self.reset_tables
+    # 既存のテーブルを削除
+    drop_tables = [
+      "DROP TABLE IF EXISTS times",
+      "DROP TABLE IF EXISTS Daily_Tasks",
+      "DROP TABLE IF EXISTS Daily_Reports",
+      "DROP TABLE IF EXISTS Tasks",
+      "DROP TABLE IF EXISTS users"
+    ]
+
+    drop_tables.each do |query|
+      client.query(query)
+    end
+    puts "既存のテーブルを削除しました。"
+  end
+
   def self.create_tables
     create_table_queries.split(';').each do |query|
       query.strip!
@@ -26,6 +42,8 @@ class Database
       CREATE TABLE IF NOT EXISTS Tasks (
         id INT NOT NULL AUTO_INCREMENT,
         title VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id)
       );
 
@@ -33,6 +51,8 @@ class Database
         id INT NOT NULL AUTO_INCREMENT,
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id)
       );
 
@@ -40,6 +60,8 @@ class Database
         id INT NOT NULL AUTO_INCREMENT,
         description TEXT DEFAULT NULL,
         user_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
         FOREIGN KEY (user_id) REFERENCES users(id)
       );
@@ -48,6 +70,8 @@ class Database
         id INT NOT NULL AUTO_INCREMENT,
         tasks_id INT NOT NULL,
         daily_reports_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
         FOREIGN KEY (tasks_id) REFERENCES Tasks(id),
         FOREIGN KEY (daily_reports_id) REFERENCES Daily_Reports(id)
@@ -58,6 +82,8 @@ class Database
         start_time DATETIME NOT NULL,
         end_time DATETIME DEFAULT NULL,
         tasks_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
         FOREIGN KEY (tasks_id) REFERENCES Tasks(id)
       )
