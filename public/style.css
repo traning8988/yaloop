@@ -158,7 +158,7 @@ button:hover {
 
 .report-container {
   width: 640px;
-  height: 720px;
+  /* height: 720px; */
 
 }
 
@@ -204,8 +204,8 @@ button:hover {
 
 .free-box {
   color: var(--black);
-  padding-top: 24px;
-  margin: 36px;
+  /* padding-top: 24px; */
+  /* margin: 36px; */
   font-size: larger;
 }
 
