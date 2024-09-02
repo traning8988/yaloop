@@ -21,7 +21,7 @@ def fetch_times_data
   client.close
 
   # 結果を指定されたJSON形式に変換
-  sample_study_data = results.map do |row|
+  sample_study_datas = results.map do |row|
     {
       id: row['id'],
       start_time: row['start_time'].strftime('%Y-%m-%d %H:%M:%S'),
@@ -31,8 +31,8 @@ def fetch_times_data
   end
 
   # JSONとして出力
-  JSON.pretty_generate(sample_study_data)
+  JSON.pretty_generate(sample_study_datas)
 end
 
 # メソッドを呼び出してJSONを出力
-# puts fetch_times_data
+puts fetch_times_data
