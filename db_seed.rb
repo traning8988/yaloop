@@ -63,7 +63,7 @@ begin
   # データベースクライアントを取得
   client = Database.client
 
-  # テーブルの作成
+  # テーブルの削除、作成
   Database.reset_tables
   Database.create_tables
 
