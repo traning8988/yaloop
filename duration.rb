@@ -68,7 +68,13 @@ def seconds_to_hms(seconds)
   format("%02d:%02d:%02d", hours, minutes, secs)
 end
 
+def daily_report(daily_report_data)
+  puts "良かったこと"
+  puts daily_report_data[0][:description]
+end
+
 sample_study_datas = fetch_times_data_today
 sample_study_duration_datas(sample_study_datas) unless sample_study_datas.nil? || sample_study_datas.empty?
 
-p report_today = fetch_report_today
+report_today = fetch_report_today
+daily_report(report_today)
