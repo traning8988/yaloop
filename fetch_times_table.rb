@@ -33,10 +33,10 @@ def fetch_times_data
   study_json_datas
 end
 
-def fetch_times_data_today # 日付が今日のデータを取得
+def fetch_times_data_today
   client = Mysql2::Client.new(DB_CONFIG)
 
-  # データベースからtimesテーブルのデータを取得
+  # 日付が今日のデータを取得
   query = <<-SQL
   SELECT
     t.start_time,
@@ -65,5 +65,31 @@ def fetch_times_data_today # 日付が今日のデータを取得
   study_json_datas
 end
 
+def fetch_report_today
+  client = Mysql2::Client.new(DB_CONFIG)
+
+  # 日付が今日の日報を取得
+  query = <<-SQL
+  SELECT
+      description
+  FROM
+      daily_reports
+  WHERE
+      DATE(created_at) = CURDATE();
+  SQL
+  results = client.query(query, as: :hash)
+  client.close
+
+  # 結果を指定されたJSON形式に変換
+  study_json_datas = results.map do |row|
+    {
+      description: row['description']
+    }
+  end
+
+  study_json_datas
+end
+
 # メソッドを呼び出してJSONを出力
 # puts fetch_times_data_today
+# puts fetch_report_today[0][:description]
