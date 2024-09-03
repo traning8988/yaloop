@@ -11,8 +11,6 @@ def seconds_to_hms(seconds)
   format("%02d:%02d:%02d", hours, minutes, secs)
 end
 
-sample_study_datas = fetch_times_data
-
 # sample_study_datas = [
 #   { id: 1, start_time: '2024-09-01 08:00:00', end_time: '2024-09-01 10:00:00', task_id: 1 },
 #   { id: 2, start_time: '2024-09-01 10:30:00', end_time: '2024-09-01 12:00:00', task_id: 2 },
@@ -72,7 +70,7 @@ def sample_study_duration_datas(sample_study_datas)
     date = start_time.to_date
     task_id = sample_study_data[:task_id]
 
-    daily_study_durations[date] = 0 unless daily_study_durations.key?(date)
+    p daily_study_durations[date] = 0 unless daily_study_durations.key?(date)
     daily_study_durations[date] += duration_seconds
 
     total_task_study_durations[task_id] = 0 unless total_task_study_durations.key?(task_id)
@@ -109,6 +107,5 @@ def sample_study_duration_datas(sample_study_datas)
   p daily_task_study_durations
 end
 
-def sample_study_duration_data
-
-end
+sample_study_datas = fetch_times_data
+sample_study_duration_datas(sample_study_datas) unless sample_study_datas.nil? || sample_study_datas.empty?
