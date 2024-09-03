@@ -2,6 +2,7 @@ version: "3.7"
 services:
   app:
     build: .
+    command: ["wait-for-it.sh", "db:3306", "--", "ruby", "server.rb"]
     tty: true
     ports:
       - 8000:8000

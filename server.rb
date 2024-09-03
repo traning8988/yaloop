@@ -3,7 +3,7 @@ require 'listen'
 require 'json'
 require_relative 'duration'
 
-# # duration.rbからデータを読み込む
+# duration.rbからデータを読み込む
 # def load_duration
 #   load 'duration.rb'
 #   $duration
@@ -11,9 +11,11 @@ require_relative 'duration'
 
 def start_server
   server = WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => './public')
-
+  duration = $duration
   server.mount_proc '/data' do |req, res|
-    res.body = JSON.generate($duration)
+
+    res.body = JSON.generate(duration)
+
     res['Content-Type'] = 'application/json'
   end
 
