@@ -11,4 +11,6 @@ ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 # 不要なキャッシュファイルを削除
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 CMD ["ruby", "server.rb"]
