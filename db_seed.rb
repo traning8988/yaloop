@@ -27,28 +27,24 @@ def insert_dummy_data(client)
     puts "タスクデータを挿入しました。"
 
     # 日報データの挿入
-    3.times do |i|
-      user_id = i + 1
-      client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('今日の作業報告', #{user_id})")
-    end
+    client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('今日の作業報告', 1)")
     puts "日報データを挿入しました。"
 
     # 日次タスクデータの挿入
-    3.times do |i|
-      daily_report_id = i + 1
-      2.times do |j|
-        task_id = j + 1
-        client.query("INSERT INTO Daily_Tasks (tasks_id, daily_reports_id) VALUES (#{task_id}, #{daily_report_id})")
-      end
+    5.times do |i|
+      task_id = i + 1
+      client.query("INSERT INTO Daily_Tasks (tasks_id, daily_reports_id) VALUES (#{task_id}, 1)")
     end
     puts "日次タスクデータを挿入しました。"
 
-    # 時間データの挿入
+    # 時間データの挿入（重複しないように）
+    base_time = Time.new(2024, 9, 3, 7, 0, 0)  # 7:00 AM から開始
     5.times do |i|
       task_id = i + 1
-      start_time = Time.now - (rand(1..5) * 3600)
-      end_time = start_time + (rand(1..3) * 3600)
+      start_time = base_time + (i * 2 * 60 * 60)  # 2時間ずつずらす
+      end_time = start_time + (60 * 60) # 1時間から1時間30分の間
       client.query("INSERT INTO times (start_time, end_time, tasks_id) VALUES ('#{start_time.strftime('%Y-%m-%d %H:%M:%S')}', '#{end_time.strftime('%Y-%m-%d %H:%M:%S')}', #{task_id})")
+      base_time = end_time  # 次のタスクの開始時間を設定
     end
     puts "時間データを挿入しました。"
 

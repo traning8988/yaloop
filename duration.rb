@@ -1,4 +1,6 @@
 require 'time'
+require 'mysql2'
+require 'json'
 
 def seconds_to_hms(seconds)
   hours = seconds / 3600
@@ -8,14 +10,45 @@ def seconds_to_hms(seconds)
   format("%02d:%02d:%02d", hours, minutes, secs)
 end
 
-sample_study_datas = [
-  { id: 1, start_time: '2024-09-01 08:00:00', end_time: '2024-09-01 10:00:00', task_id: 1 },
-  { id: 2, start_time: '2024-09-01 10:30:00', end_time: '2024-09-01 12:00:00', task_id: 2 },
-  { id: 3, start_time: '2024-09-01 13:00:00', end_time: '2024-09-01 15:00:00', task_id: 1 },
-  { id: 4, start_time: '2024-09-02 09:00:00', end_time: '2024-09-02 11:30:00', task_id: 3 },
-  { id: 5, start_time: '2024-09-02 12:00:00', end_time: '2024-09-02 14:00:00', task_id: 2 },
-  { id: 6, start_time: '2024-09-02 14:30:00', end_time: '2024-09-02 16:30:00', task_id: 4 }
-]
+# sample_study_datas = [
+#   { id: 1, start_time: '2024-09-01 08:00:00', end_time: '2024-09-01 10:00:00', task_id: 1 },
+#   { id: 2, start_time: '2024-09-01 10:30:00', end_time: '2024-09-01 12:00:00', task_id: 2 },
+#   { id: 3, start_time: '2024-09-01 13:00:00', end_time: '2024-09-01 15:00:00', task_id: 1 },
+#   { id: 4, start_time: '2024-09-02 09:00:00', end_time: '2024-09-02 11:30:00', task_id: 3 },
+#   { id: 5, start_time: '2024-09-02 12:00:00', end_time: '2024-09-02 14:00:00', task_id: 2 },
+#   { id: 6, start_time: '2024-09-02 14:30:00', end_time: '2024-09-02 16:30:00', task_id: 4 }
+# ]
+# データベース接続設定
+DB_CONFIG = {
+  host: ENV['DATABASE_HOST'],
+  username: ENV['DATABASE_USER'],
+  password: ENV['DATABASE_PASSWORD'],
+  database: ENV['DATABASE_NAME']
+}
+
+
+client = Mysql2::Client.new(DB_CONFIG)
+
+# データベースからtimesテーブルのデータを取得
+query = <<-SQL
+  SELECT times.id, times.start_time, times.end_time, times.tasks_id
+  FROM times
+SQL
+results = client.query(query, as: :hash)
+client.close
+
+# 結果を指定されたJSON形式に変換
+sample_study_datas = results.map do |row|
+  {
+    id: row['id'],
+    start_time: row['start_time'].strftime('%Y-%m-%d %H:%M:%S'),
+    end_time: row['end_time'].strftime('%Y-%m-%d %H:%M:%S'),
+    tasks_id: row['tasks_id']
+  }
+end
+
+# JSONとして出力
+JSON.pretty_generate(sample_study_datas)
 
 
 $duration = {}
@@ -79,5 +112,5 @@ end
 
 sample_study_duration_datas(sample_study_datas)
 p "この下"
-$duration
+# $duration
 
