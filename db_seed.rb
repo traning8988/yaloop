@@ -42,7 +42,7 @@ def insert_dummy_data(client)
     5.times do |i|
       task_id = i + 1
       start_time = base_time + (i * 2 * 60 * 60)  # 2時間ずつずらす
-      end_time = start_time + (60 * 60) + rand(0..30) * 60  # 1時間から1時間30分の間
+      end_time = start_time + (60 * 60) # 1時間から1時間30分の間
       client.query("INSERT INTO times (start_time, end_time, tasks_id) VALUES ('#{start_time.strftime('%Y-%m-%d %H:%M:%S')}', '#{end_time.strftime('%Y-%m-%d %H:%M:%S')}', #{task_id})")
       base_time = end_time  # 次のタスクの開始時間を設定
     end
