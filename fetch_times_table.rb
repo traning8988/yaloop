@@ -33,5 +33,37 @@ def fetch_times_data
   study_json_datas
 end
 
+def fetch_times_data_today # 日付が今日のデータを取得
+  client = Mysql2::Client.new(DB_CONFIG)
+
+  # データベースからtimesテーブルのデータを取得
+  query = <<-SQL
+  SELECT
+    t.start_time,
+    t.end_time,
+    ts.title
+  FROM
+    times t
+  JOIN
+    tasks ts ON t.tasks_id = ts.id
+  WHERE
+    DATE(t.start_time) = CURDATE()
+    AND DATE(t.end_time) = CURDATE();
+  SQL
+  results = client.query(query, as: :hash)
+  client.close
+
+  # 結果を指定されたJSON形式に変換
+  study_json_datas = results.map do |row|
+    {
+      start_time: row['start_time'].strftime('%Y-%m-%d %H:%M:%S'),
+      end_time: row['end_time'].strftime('%Y-%m-%d %H:%M:%S'),
+      title: row['title']
+    }
+  end
+
+  study_json_datas
+end
+
 # メソッドを呼び出してJSONを出力
-# puts fetch_times_data
+# puts fetch_times_data_today
