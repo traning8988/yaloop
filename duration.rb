@@ -2,6 +2,8 @@ require 'time'
 require_relative 'fetch_times_table'
 
 def seconds_to_hms(seconds)
+  return if seconds.nil?
+
   hours = seconds / 3600
   minutes = (seconds % 3600) / 60
   secs = seconds % 60
@@ -10,6 +12,7 @@ def seconds_to_hms(seconds)
 end
 
 sample_study_datas = fetch_times_data
+
 # sample_study_datas = [
 #   { id: 1, start_time: '2024-09-01 08:00:00', end_time: '2024-09-01 10:00:00', task_id: 1 },
 #   { id: 2, start_time: '2024-09-01 10:30:00', end_time: '2024-09-01 12:00:00', task_id: 2 },
@@ -109,7 +112,3 @@ end
 def sample_study_duration_data
 
 end
-
-sample_study_duration_datas(sample_study_datas)
-p "この下"
-# $duration
