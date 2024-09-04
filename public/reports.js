@@ -11,6 +11,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
   const taskInput = document.querySelector('.task-input').value;
 
   if (taskInput) {
+
     const li = document.createElement('li');
     li.classList.add("report-task");
     
@@ -35,6 +36,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
      taskTitle.classList.add("task-title");
      taskTitle.textContent = taskInput;
 
+
     const taskTime = document.createElement('p');
     taskTime.classList.add("task-time");
     taskTime.textContent = "now-working";
@@ -48,6 +50,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
 
     // 入力フィールドをクリア
     document.querySelector('.task-input').value = '';
+
 
     // AJAXリクエストを送信
     fetch('/add_task', {
