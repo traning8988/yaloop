@@ -49,6 +49,17 @@ function fetchDataAndUpdate() {
         reportParagraph.textContent = `日報\n ${data.description}`;
         reportContent.appendChild(reportParagraph);
       }
+
+      const userContent = document.getElementById("user-name");
+      if (userContent) {
+        userContent.innerHTML = "";
+
+        // 学習時間を表示する要素を作成
+        const userParagraph = document.createElement("p");
+        userParagraph.className = ""; // クラス名を設定
+        userParagraph.textContent = `${data.user.name}`;
+        userContent.appendChild(userParagraph);
+      }
     })
     .catch((error) => console.error("Error loading data:", error));
 }
