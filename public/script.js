@@ -30,7 +30,7 @@ function fetchDataAndUpdate() {
 
           const taskTime = document.createElement("p");
           taskTime.className = "task-time"; // タスク時間のクラス名
-          taskTime.textContent = task.time;
+          taskTime.textContent = `${task.hours}時間${task.minutes}分`;
 
           taskDiv.appendChild(taskTitle);
           taskDiv.appendChild(taskTime);
