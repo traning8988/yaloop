@@ -31,6 +31,7 @@
 }
 
 .report-container {
+  position: relative;
   height: 635px;
 
 }
@@ -115,6 +116,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
 }
  small {
   flex: auto;
@@ -146,11 +148,16 @@ textarea {
   border-radius: 5px;
   box-sizing: border-box;
   resize: vertical; /* テキストエリアの高さの変更を許可 */
+  height: 220px; /* 高さを固定 */
 }
 
 .submit-button {
-  display:flex;
-  justify-content: center;
+  /* display:flex;
+  justify-content: center; */
+  position: absolute; /* 親要素内での絶対位置指定 */
+  left: 50%; /* 横方向の中心に配置 */
+  transform: translateX(-50%); /* ボタンの幅の半分だけ左に移動して正確に中央に */
+  bottom: 10px; /* 下から10pxの位置に配置 */
 }
 
 .submit-button button {
