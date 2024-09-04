@@ -79,13 +79,6 @@ function fetchDataAndUpdate() {
       const reportTasks = reportTasksContainer.querySelectorAll(".report-task");
       // console.log(reportTasks)
 
-      // 要素の数が偶数の場合にクラスを追加
-      if (reportTasks.length % 2 === 0) {
-        div.classList.add("oddtask-color");
-      } else {
-        div.classList.add("eventtask-color");
-      }
-
       const reportContent = document.getElementById("report-content");
       if (reportContent) {
         reportContent.innerHTML = "";

@@ -1,50 +1,66 @@
 const ctx = document.getElementById("stackedBarChart").getContext("2d");
 
 const tasks = [
-  { title: "ruby", time: "02:00:00" },
-  { title: "react", time: "01:30:00" },
-  { title: "HTML/CSS", time: "02:00:00" },
-  { title: "チームミーティング", time: "01:30:00" },
+  { title: "ruby", hours: "02", minutes: "00", seconds: "00" },
+  { title: "react", hours: "01", minutes: "30", seconds: "00" },
+  { title: "HTML/CSS", hours: "01", minutes: "10", seconds: "00" },
+  { title: "チームミーティング", hours: "02", minutes: "20", seconds: "00" },
 ];
 
-function timeToSeconds(timeStr) {
-  const [hours, minutes, seconds] = timeStr.split(":").map(Number);
-  return hours * 3600 + minutes * 60 + seconds;
+function timeToSeconds(hours, minutes, seconds) {
+  return Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
 }
 
+const today = new Date();
 const labels = tasks.map((task) => task.title);
-const datasetData = tasks.map((task) => timeToSeconds(task.time) / 3600); // 時間単位で表現
+const datasetData = tasks.map((task) =>
+  (timeToSeconds(task.hours, task.minutes, task.seconds) / 3600).toFixed(1)
+);
+
+const colors = [
+  "rgba(255, 99, 132, 0.8)",
+  "rgba(54, 162, 235, 0.8)",
+  "rgba(75, 192, 192, 0.8)",
+  "rgba(255, 159, 64, 0.8)",
+  "rgba(153, 102, 255, 0.8)",
+  "rgba(255, 205, 86, 0.8)",
+  "rgba(255, 99, 71, 0.8)",
+  "rgba(100, 149, 237, 0.8)",
+];
 
 const data = {
-  labels: ["January"],
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [65],
-      backgroundColor: "rgba(255, 99, 132, 0.8)",
-    },
-    {
-      label: "Dataset 2",
-      data: [28],
-      backgroundColor: "rgba(54, 162, 235, 0.8)",
-    },
-    {
-      label: "Dataset 3",
-      data: [35],
-      backgroundColor: "rgba(75, 192, 192, 0.8)",
-    },
-  ],
+  labels: [`${today.getMonth() + 1}/${today.getDate()}`],
+  datasets: labels.map((label, index) => ({
+    label: label,
+    data: [datasetData[index]], // 各タスクのデータ
+    backgroundColor: colors[index % colors.length],
+  })),
 };
 
 const options = {
   plugins: {
     title: {
       display: true,
-      text: "Stacked Bar Chart Example",
+      text: "学習時間",
     },
     tooltip: {
-      mode: "index",
       intersect: false,
+      callbacks: {
+        title: function (tooltipItems) {
+          // ツールチップのタイトル部分をカスタマイズ
+          return ``;
+        },
+        label: function (tooltipItem) {
+          // データセットのラベルを取得して表示
+          const datasetLabel = tooltipItem.dataset.label;
+          const value = parseFloat(tooltipItem.raw);
+          return `${datasetLabel}: ${value.toFixed(1)} hours`;
+        },
+        footer: function (tooltipItems) {
+          // ツールチップのフッター部分をカスタマイズ（ここでは空にしています）
+          return "";
+        },
+      },
     },
   },
   responsive: true,
@@ -55,6 +71,17 @@ const options = {
     y: {
       stacked: true,
       beginAtZero: true,
+      suggestedMax: 12,
+      ticks: {
+        callback: function (value) {
+          return value.toFixed(0);
+        },
+        stepSize: 1,
+      },
+      title: {
+        display: true,
+        text: "",
+      },
     },
   },
 };
