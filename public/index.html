@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reports.css">
     <link rel="stylesheet" href="timer&graph.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -44,7 +45,7 @@
                 <div class="graph-container">
                     <h1>◀︎ 2024 / 7 ▶︎</h1>
                     <div class="graph-display">
-                        <img src="graph-image.png" alt="">
+                        <canvas id="myChart" width="400" height="400"></canvas>
 
                     </div>
                 </div>
@@ -87,6 +88,7 @@
         <small class="copyrights">team 2 </small>
     </footer>
     <script src="script.js"></script>
+    <script src="graph.js"></script>
     <script src="reports.js"></script>
     <script>
         function restartServer() {
