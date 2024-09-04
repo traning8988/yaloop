@@ -160,7 +160,7 @@ main {
   padding: 12px 24px;
   height: 240px;
   color: var(--black);
-  margin: 12px;
+  /* margin: 12px; */
   font-size: larger;
 }
 

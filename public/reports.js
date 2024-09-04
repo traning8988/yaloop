@@ -17,7 +17,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
     // 現在の .report-task 要素を取得
     const reportTasksContainer = document.querySelector('.report-tasks');
     const reportTasks = reportTasksContainer.querySelectorAll('.report-task');
-    console.log(reportTasks)
+    // console.log(reportTasks)
     
     // 要素の数が偶数の場合にクラスを追加
     if (reportTasks.length % 2 === 0) {
