@@ -1,5 +1,6 @@
 const ctx = document.getElementById("stackedBarChart").getContext("2d");
 
+// サンプルデータ
 const tasks = [
   { title: "ruby", time: "02:00:00" },
   { title: "react", time: "01:30:00" },
@@ -7,27 +8,22 @@ const tasks = [
   { title: "チームミーティング", time: "01:30:00" },
 ];
 
+// 時間を秒に変換する関数
 function timeToSeconds(timeStr) {
   const [hours, minutes, seconds] = timeStr.split(":").map(Number);
   return hours * 3600 + minutes * 60 + seconds;
 }
 
+// データを集計
+const labels = tasks.map((task) => task.title);
+const datasetData = tasks.map((task) => timeToSeconds(task.time) / 3600); // 時間単位で表現
+
 const data = {
-  labels: ["January"],
+  labels: labels,
   datasets: [
     {
-      label: "Dataset 1",
-      data: [65],
-      backgroundColor: "rgba(255, 99, 132, 0.8)",
-    },
-    {
-      label: "Dataset 2",
-      data: [28],
-      backgroundColor: "rgba(54, 162, 235, 0.8)",
-    },
-    {
-      label: "Dataset 3",
-      data: [35],
+      label: "Task Time (hours)",
+      data: datasetData,
       backgroundColor: "rgba(75, 192, 192, 0.8)",
     },
   ],
