@@ -19,14 +19,12 @@
     <header>
         <div class="top">
             <h1 class="logo">Yaloop</h1>
-
             <div class="navi">
-                <a href="#">Link</a>
                 <p id="user-name">username</p>
+                <button onclick="restartServer()">サーバー再起動</button>
             </div>
         </div>
     </header>
-    <button onclick="restartServer()">サーバー再起動</button>
     <main class="app">
         <div class="container">
 
@@ -52,7 +50,7 @@
                 <!-- 日報 -->
                 <div class="report-container">
                     <div class="report-top">
-                        <p class="report-date"> ◀︎ 2024 / 7 / 31 ▶︎</p>
+                        <p class="report-date"> 2024 / 7 / 31</p>
                         <p id="content" class="report-totaltime">学習時間: 00時間 00分</p>
                         <!-- <p class="report-totaltime">total time: 07:30</p> -->
                     </div>
@@ -66,14 +64,18 @@
                         </div> -->
 
                     </div>
+                    <div class="report-box">
                     <small class="small">▼Click</small>
-                    <div id="editable-area" class="free-box" onclick="enableEdit()">
+                    <div id="editable-area" class="editable-area" onclick="enableEdit()">
 【よかった点】
-
+<br>
+<br>
 【改善点】
-
+<br>
+<br>
 【明日へ決意】
 
+                    </div>
                     </div>
                     <div  class="submit-button">
                         <button type="submit">Save</button>
@@ -82,9 +84,7 @@
             </div>
         </div>
     </main>
-    <footer>
-        <small class="copyrights">team 2 </small>
-    </footer>
+
     <script src="script.js"></script>
     <script src="graph.js"></script>
     <script src="reports.js"></script>

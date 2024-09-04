@@ -2,69 +2,19 @@
 :root {
   --yellow: #FFF898; 
   --orange: #FF7D11;
-  --task-orange: #ff9b54;
   --green: #28AF40;
-  --task-green: #7dff93;
   --blue: #4097FA;
   --white: #FFFFFF;
   --gray: #f5f5f5;
-  --light-gray: #0a0a0afd;
-
+  --light-gray: #f9f9f9;
   --black: #393939e1;
-  --subblack: #848484e1;
   --border-light: 1px solid #eaeaea;
   --border-value: 1px solid #a7a5a2;
-}
 
-body {
-  font-family: 'Sen', sans-serif;    
-  box-sizing: border-box;
-}
+  --subblack: #969595e5;
 
-/* top のスタイル */
-header {
-  height: 56px;
-  background-color: var(--gray);
-  margin-bottom: 24px;
-  border-bottom: var(--border-value)
-}
-.top {
-  display: flex;
-  margin: 0 auto;
-  max-width: 1280px;
-  justify-content: space-between;
-  align-content: center;
-}
 
-.logo {
-  color: var(--green);
-  font-size:xx-large;
-  font-weight: bolder;
-  margin: 10px;
 }
-
-.navi {
-  color: var(--white);
-  font-size:medium;
-  font-weight: bolder;
-  margin: 10px;
-}
-
-/* メイン画面スタイル */
-main {
-  margin: 0 auto;
-  height: auto;
-}
-
-.container {
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  gap:24px;
-  padding: 10px;
-}
-
-/* 左側のスタイル */
 
 
 /* 右側の日報スタイル */
@@ -76,16 +26,16 @@ main {
   /* box-shadow: inset; */
 
   width: 540px;
-  height: 720px;
-  background-color:  var(--gray);
+  height: 635px;
+  background-color:  var(--light-gray);
 }
 
 .report-container {
-  height: 720px;
+  height: 635px;
 
 }
 .report-top {
-  padding: 16px 48px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,7 +44,7 @@ main {
 
 .report-date {
   color: var(--black);
-  margin-bottom: 16px;
+  margin: 8px auto;
   font-size: 20px;
 }
 
@@ -105,7 +55,7 @@ main {
 }
 
 .report-tasks {
-  height: 270px;
+  height: 250px;
   margin: 0 18px;
   /* border: 1px solid #ccc; */
   padding: 10px; /* 内側の余白を設定 */
@@ -120,14 +70,15 @@ main {
 } */
 
 .report-task {
-  margin: 0 24px 8px;
-  padding: 8px;
+  margin: 0 auto 8;
+  padding: 6px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
   align-items: center;
-  border: 1px solid var(--black);
-  border-radius: 16px;
+  /* border: 1px solid var(--black); */
+  box-shadow: 2px 2.4px 1px rgba(0, 0, 0, 0.521); /* ボタンの影 */
+  border-radius: 8px;
 }
 .report-task:last-child {
   margin-bottom: 0; /* 最後のタスクの余白を削除 */
@@ -160,17 +111,37 @@ main {
   color: var(--white);
 }
 
+.report-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
  small {
-  margin-left: 36px;
+  flex: auto;
+  margin-left: 48px;
+  margin-bottom: 6px;
   font-size: 12px;
 }
 
-.free-box {
-  margin: 10px;
-  /* width: 480px;
-  height: 280px; */
+textarea {
+  flex: auto;
+  margin: 0 auto;
+  width: 440px;
+  height: 220px;
+
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+}
+.editable-area {
+  flex: auto;
+  margin: 0 auto;
+  width: 440px;
+  /* height: 280px; */
   padding: 10px;
-  font-size: 18px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -183,7 +154,7 @@ main {
 }
 
 .submit-button button {
-  margin-left: 10px;
+  margin: 10px;
   width: 140px;
   height: 58px;
   font-size: larger;

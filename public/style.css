@@ -18,7 +18,7 @@ body {
 
 /* top のスタイル */
 header {
-  height: 48px;
+  height: 60px;
   background-color: var(--gray);
   /* margin-bottom: 12px; */
   border-bottom: var(--border-value);
@@ -27,20 +27,34 @@ header {
 .top {
   display: flex;
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: 1080px;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
 }
 
 .logo {
   color: var(--green);
-  font-size: xx-large;
+  padding: 14px 0;
+  font-size: 32px;
   font-weight: bolder;
   /* margin: 10px; */
 }
+.nav {
+  display: inline;
+  flex-direction: column;
 
-.navi {
+}
+.navi p {
+
   color: var(--white);
+  font-size: medium;
+  font-weight: bolder;
+  /* margin: 24px; */
+}
+
+.navi button {
+
+  color: var(--black);
   font-size: medium;
   font-weight: bolder;
   /* margin: 24px; */
@@ -52,10 +66,11 @@ main {
 }
 
 .container {
+  padding-top: 50px;
   display: flex;
   margin: 0 auto;
   justify-content: center;
-  gap: 40px;
+  gap: 28px;
 }
 
 /* footer */

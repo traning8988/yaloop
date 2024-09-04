@@ -153,8 +153,8 @@ function enableEdit() {
   // textareaを生成
   const textarea = document.createElement('textarea');
   textarea.value = text;
-  textarea.style.width = '480px';
-  textarea.style.height = '280px';
+  // textarea.style.width = '440px';
+  // textarea.style.height = '280px';
   textarea.class = 'free-box';
   textarea.id = 'free-box';
 
