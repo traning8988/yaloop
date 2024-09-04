@@ -26,12 +26,12 @@
   /* box-shadow: inset; */
 
   width: 540px;
-  height: 645px;
+  height: 635px;
   background-color:  var(--light-gray);
 }
 
 .report-container {
-  height: 645px;
+  height: 635px;
 
 }
 .report-top {
@@ -55,7 +55,7 @@
 }
 
 .report-tasks {
-  height: 260px;
+  height: 250px;
   margin: 0 18px;
   /* border: 1px solid #ccc; */
   padding: 10px; /* 内側の余白を設定 */

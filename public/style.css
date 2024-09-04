@@ -39,9 +39,22 @@ header {
   font-weight: bolder;
   /* margin: 10px; */
 }
+.nav {
+  display: inline;
+  flex-direction: column;
 
+}
 .navi p {
+
   color: var(--white);
+  font-size: medium;
+  font-weight: bolder;
+  /* margin: 24px; */
+}
+
+.navi button {
+
+  color: var(--black);
   font-size: medium;
   font-weight: bolder;
   /* margin: 24px; */
