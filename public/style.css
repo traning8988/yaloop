@@ -1,10 +1,9 @@
-
 :root {
-  --yellow: #FFF898; 
-  --orange: #FF7D11;
-  --green: #28AF40;
-  --blue: #4097FA;
-  --white: #FFFFFF;
+  --yellow: #fff898;
+  --orange: #ff7d11;
+  --green: #28af40;
+  --blue: #4097fa;
+  --white: #ffffff;
   --gray: #f5f5f5;
   --light-gray: #f9f9f9fd;
   --black: #393939e1;
@@ -13,7 +12,7 @@
 }
 
 body {
-  font-family: 'Sen', sans-serif;    
+  font-family: "Sen", sans-serif;
   box-sizing: border-box;
 }
 
@@ -22,7 +21,7 @@ header {
   height: 48px;
   background-color: var(--gray);
   /* margin-bottom: 12px; */
-  border-bottom: var(--border-value)
+  border-bottom: var(--border-value);
 }
 
 .top {
@@ -35,14 +34,14 @@ header {
 
 .logo {
   color: var(--green);
-  font-size:xx-large;
+  font-size: xx-large;
   font-weight: bolder;
   /* margin: 10px; */
 }
 
 .navi {
   color: var(--white);
-  font-size:medium;
+  font-size: medium;
   font-weight: bolder;
   /* margin: 24px; */
 }
@@ -56,15 +55,14 @@ main {
   display: flex;
   margin: 0 auto;
   justify-content: center;
-  gap:40px;
-
+  gap: 40px;
 }
 
 /* footer */
 footer {
   margin-top: auto;
   background-color: var(--gray);
-  padding: 10px;              /* フッターのパディング */
+  padding: 10px; /* フッターのパディング */
   text-align: center;
   width: 100%;
   position: fixed;
@@ -87,3 +85,7 @@ footer small {
 
   }
 } */
+
+#user-name {
+  color: var(--black);
+}
