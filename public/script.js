@@ -38,6 +38,17 @@ function fetchDataAndUpdate() {
           taskContainer.appendChild(taskDiv);
         });
       }
+
+      const reportContent = document.getElementById("report-content");
+      if (reportContent) {
+        reportContent.innerHTML = "";
+
+        // 学習時間を表示する要素を作成
+        const reportParagraph = document.createElement("p");
+        reportParagraph.className = ""; // クラス名を設定
+        reportParagraph.textContent = `日報\n ${data.description}`;
+        reportContent.appendChild(reportParagraph);
+      }
     })
     .catch((error) => console.error("Error loading data:", error));
 }
