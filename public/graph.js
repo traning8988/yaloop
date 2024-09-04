@@ -33,7 +33,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
   
        const taskTime = document.createElement('p');
        taskTime.classList.add("task-time");
-       taskTime.textContent = "now-working";
+       taskTime.textContent = "working";
        
        // <p>を<li>に追加
        li.appendChild(taskTitle);

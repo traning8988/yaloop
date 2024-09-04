@@ -10,7 +10,7 @@ function fetchDataAndUpdate() {
         // 学習時間を表示する要素を作成
         const timeParagraph = document.createElement("p");
         timeParagraph.className = "report-totaltime"; // クラス名を設定
-        timeParagraph.textContent = `学習時間: ${data.duration_hour}時間 ${data.duration_minute}分`;
+        timeParagraph.textContent = `Total: ${data.duration_hour}時間 ${data.duration_minute}分`;
         content.appendChild(timeParagraph);
       }
 
@@ -22,10 +22,10 @@ function fetchDataAndUpdate() {
         // タスクのリストを生成
         data.tasks.forEach((task) => {
           const taskDiv = document.createElement("div");
-          taskDiv.className = "report-task"; // タスクコンテナのクラス名
+          taskDiv.className = "report-task oddtask-color"; // タスクコンテナのクラス名
     
           const taskTitle = document.createElement("p");
-          taskTitle.className = "task-title"; // タスクタイトルのクラス名
+          taskTitle.className = "task-title "; // タスクタイトルのクラス名
           taskTitle.textContent = task.title;
     
           const taskTime = document.createElement("p");

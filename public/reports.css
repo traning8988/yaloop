@@ -74,50 +74,54 @@ main {
   border-right: var(--border-value);
   border-bottom: var(--border-value);
   /* box-shadow: inset; */
-  min-width: 400px;
-  max-width: 640px;
+
+  width: 540px;
   height: 720px;
   background-color:  var(--gray);
 }
 
 .report-container {
   height: 720px;
+
 }
 .report-top {
+  padding: 16px 48px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .report-date {
   color: var(--black);
-  padding: 10px;
-  font-size: 24px;
+  margin-bottom: 16px;
+  font-size: 20px;
 }
 
 .report-totaltime {
   color: var(--black);
-  font-size: 36px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .report-tasks {
-  height: 300px;
-  margin: 18px 36px;
+  height: 270px;
+  margin: 0 18px;
   /* border: 1px solid #ccc; */
   padding: 10px; /* 内側の余白を設定 */
   box-sizing: border-box;
   border-radius: 4px;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
-.report-tasks h2 {
+/* .report-tasks h2 {
   color: var(--black);
-  font-size: 24px;
+  font-size: 2px;
   font-weight: bold;
-}
+} */
 
 .report-task {
-  margin: 0 16px 8px;
-  padding: 10px;
+  margin: 0 24px 8px;
+  padding: 8px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -132,14 +136,14 @@ main {
 .task-title {
   padding-left: 24px;
   color: var(--black);
-  font-size: 36px;
+  font-size: 30px;
 
   /* text-shadow: 2px 1px rgba(255, 255, 255, 0.89); */
 }
 .task-time {
   padding-right: 24px;
   color: var(--black);
-  font-size: 36px;
+  font-size: 30px;
 
   /* text-shadow: 2px 1px  rgba(255, 255, 255, 0.86); */
 }
@@ -156,12 +160,21 @@ main {
   color: var(--white);
 }
 
+ small {
+  margin-left: 36px;
+  font-size: 12px;
+}
+
 .free-box {
-  padding: 12px 24px;
-  height: 240px;
-  color: var(--black);
-  /* margin: 12px; */
-  font-size: larger;
+  margin: 10px;
+  /* width: 480px;
+  height: 280px; */
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: vertical; /* テキストエリアの高さの変更を許可 */
 }
 
 .submit-button {
@@ -188,15 +201,3 @@ button:hover {
 
 
 
-@media screen and (max-width: 1280px) {
-  body {
-      /* background-color: lightblue; */
-  }
-}
-
-
-@media screen and (max-width: 980px) {
-  body {
-      /* background-color: red; */
-  }
-}

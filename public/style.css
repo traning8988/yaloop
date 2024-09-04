@@ -19,16 +19,16 @@ body {
 
 /* top のスタイル */
 header {
-  height: 56px;
+  height: 48px;
   background-color: var(--gray);
-  margin-bottom: 40px;
+  /* margin-bottom: 12px; */
   border-bottom: var(--border-value)
 }
 
 .top {
   display: flex;
   margin: 0 auto;
-  max-width: 1480px;
+  max-width: 1280px;
   justify-content: space-between;
   align-content: center;
 }
@@ -37,14 +37,14 @@ header {
   color: var(--green);
   font-size:xx-large;
   font-weight: bolder;
-  margin: 10px;
+  /* margin: 10px; */
 }
 
 .navi {
   color: var(--white);
   font-size:medium;
   font-weight: bolder;
-  margin: 10px;
+  /* margin: 24px; */
 }
 /* メイン画面スタイル */
 main {
@@ -57,7 +57,7 @@ main {
   margin: 0 auto;
   justify-content: center;
   gap:40px;
-  padding: 20px;
+
 }
 
 /* footer */
@@ -76,14 +76,14 @@ footer small {
   color: var(--black);
 }
 
-@media screen and (max-width: 1280px) {
+/* @media screen and (max-width: 1280px) {
   body {
-      /* background-color: lightblue; */
+
   }
 }
 
 @media screen and (max-width: 980px) {
   body {
-      /* background-color: red; */
+
   }
-}
+} */
