@@ -77,4 +77,4 @@ sample_study_datas = fetch_times_data_today
 sample_study_duration_datas(sample_study_datas) unless sample_study_datas.nil? || sample_study_datas.empty?
 
 report_today = fetch_report_today
-daily_report(report_today)
+daily_report(report_today) unless report_today.nil? || report_today.empty?
