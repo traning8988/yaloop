@@ -21,9 +21,11 @@
 
             <div class="navi">
                 <a href="#">Link</a>
+                <p id="user-name">username</p>
             </div>
         </div>
     </header>
+    <button onclick="restartServer()">サーバー再起動</button>
     <main class="app">
         <div class="container">
 
@@ -86,6 +88,29 @@
     </footer>
     <script src="script.js"></script>
     <script src="reports.js"></script>
+    <script>
+        function restartServer() {
+            fetch('/restart', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Server restart failed');
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                    // サーバー再起動後にページをリロード
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000); // 2秒後にリロード
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('サーバー再起動に失敗しました。');
+                });
+        }
+    </script>
 </body>
 
 </html>

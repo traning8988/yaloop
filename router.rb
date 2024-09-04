@@ -51,6 +51,15 @@ class Router
         end_time: end_time  # クライアントに終了時刻を返す
       })
       response['Content-Type'] = 'application/json'
+    when '/restart'
+      response.status = 200
+      response.content_type = "text/plain"
+      response.body = "Server is restarting..."
+      Thread.new do
+        sleep 1  # レスポンスが返されるまで少し待つ
+        Process.kill('INT', Process.pid)
+        exec('ruby server.rb')
+      end
     else
       response.status = 404
     end
