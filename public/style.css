@@ -18,7 +18,7 @@ body {
 
 /* top のスタイル */
 header {
-  height: 42px;
+  height: 48px;
   background-color: var(--gray);
   /* margin-bottom: 12px; */
   border-bottom: var(--border-value);
@@ -34,7 +34,7 @@ header {
 
 .logo {
   color: var(--green);
-  padding: 4px;
+  padding: 8px;
   font-size: 32px;
   font-weight: bolder;
   /* margin: 10px; */
@@ -66,11 +66,11 @@ main {
 }
 
 .container {
-  padding-top: 10px;
+  padding-top: 24px;
   display: flex;
   margin: 0 auto;
   justify-content: center;
-  gap: 24px;
+  gap: 28px;
 }
 
 /* footer */
