@@ -48,6 +48,17 @@ document.getElementById("btn").addEventListener("click", function (event) {
         const taskTitle = document.createElement('p');
         taskTitle.classList.add("task-title");
         taskTitle.textContent = taskInput;
+
+        const taskTime = document.createElement('p');
+        taskTime.classList.add("task-time");
+        taskTime.textContent = "now-working";
+        
+        // <p>を<li>に追加
+        li.appendChild(taskTitle);
+        li.appendChild(taskTime);
+        
+        // <li>を<ul>に追加
+        document.querySelector('.report-tasks').appendChild(li);
         })
       .catch(error => {
         console.error('Error:', error);
