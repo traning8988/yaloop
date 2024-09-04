@@ -39,10 +39,17 @@ class Router
 
   def handle_post(request, response)
     case request.path
-    when '/add_task'
+    when '/start_data'
       data = JSON.parse(request.body)
       result = insert_task_and_related(data['title'])
       response.body = JSON.generate({ status: result ? 'success' : 'error' })
+      response['Content-Type'] = 'application/json'
+    when '/end_task'
+      success, end_time = update_task_end_time
+      response.body = JSON.generate({
+        status: result ? 'success' : 'error',
+        end_time: end_time  # クライアントに終了時刻を返す
+      })
       response['Content-Type'] = 'application/json'
     else
       response.status = 404
@@ -102,6 +109,30 @@ class Router
       puts "データベースエラー: #{e.message}"
       @db.query("ROLLBACK") # エラー時にトランザクションをロールバック
       false
+    end
+  end
+
+  def update_task_end_time
+    begin
+      # 最後のタスクのIDを取得
+      max_id_result = @db.query("SELECT MAX(id) AS max_id FROM times")
+      max_id = max_id_result.first['max_id']
+
+      if max_id.nil?
+        return [false, nil] # タスクが存在しない場合
+      end
+
+      # end_timeを更新
+      @db.query("UPDATE times SET end_time = NOW() WHERE id = #{max_id}")
+
+      # 更新されたend_timeを取得
+      end_time_result = @db.query("SELECT end_time FROM times WHERE id = #{max_id}")
+      end_time = end_time_result.first['end_time']
+
+      [true, end_time]
+    rescue Mysql2::Error => e
+      puts "データベースエラー: #{e.message}"
+      [false, nil]
     end
   end
 end
