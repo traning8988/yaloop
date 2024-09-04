@@ -16,56 +16,6 @@
 
 }
 
-body {
-  font-family: 'Sen', sans-serif;    
-  box-sizing: border-box;
-}
-
-/* top のスタイル */
-header {
-  height: 56px;
-  background-color: var(--gray);
-  margin-bottom: 24px;
-  border-bottom: var(--border-value)
-}
-.top {
-  display: flex;
-  margin: 0 auto;
-  max-width: 1280px;
-  justify-content: space-between;
-  align-content: center;
-}
-
-.logo {
-  color: var(--green);
-  font-size:xx-large;
-  font-weight: bolder;
-  margin: 10px;
-}
-
-.navi {
-  color: var(--white);
-  font-size:medium;
-  font-weight: bolder;
-  margin: 10px;
-}
-
-/* メイン画面スタイル */
-main {
-  margin: 0 auto;
-  height: auto;
-}
-
-.container {
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  gap:24px;
-  padding: 10px;
-}
-
-/* 左側のスタイル */
-
 
 /* 右側の日報スタイル */
 .right-side {
@@ -76,16 +26,16 @@ main {
   /* box-shadow: inset; */
 
   width: 540px;
-  height: 720px;
+  height: 645px;
   background-color:  var(--light-gray);
 }
 
 .report-container {
-  height: 720px;
+  height: 645px;
 
 }
 .report-top {
-  padding: 16px 48px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,7 +44,7 @@ main {
 
 .report-date {
   color: var(--black);
-  margin-bottom: 16px;
+  margin: 8px auto;
   font-size: 20px;
 }
 
@@ -105,7 +55,7 @@ main {
 }
 
 .report-tasks {
-  height: 270px;
+  height: 260px;
   margin: 0 18px;
   /* border: 1px solid #ccc; */
   padding: 10px; /* 内側の余白を設定 */
@@ -121,7 +71,7 @@ main {
 
 .report-task {
   margin: 0 auto 8;
-  padding: 8px;
+  padding: 6px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -177,9 +127,9 @@ textarea {
   flex: auto;
   margin: 0 auto;
   width: 440px;
-  height: 240px;
+  height: 220px;
 
-  font-size: 18px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -191,7 +141,7 @@ textarea {
   width: 440px;
   /* height: 280px; */
   padding: 10px;
-  font-size: 18px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
