@@ -52,14 +52,24 @@ class Router
       })
       response['Content-Type'] = 'application/json'
     when '/restart'
+      # response.status = 200
+      # response.content_type = "text/plain"
+      # response.body = "Server is restarting..."
+      # Thread.new do
+      #   sleep 1  # レスポンスが返されるまで少し待つ
+      #   Process.kill('INT', Process.pid)
+      #   exec('ruby server.rb')
+      # end
       response.status = 200
       response.content_type = "text/plain"
       response.body = "Server is restarting..."
+      # すぐにリスタートする
       Thread.new do
-        sleep 1  # レスポンスが返されるまで少し待つ
-        Process.kill('INT', Process.pid)
+        sleep 0.1  # ほんの少し待ってから再起動
         exec('ruby server.rb')
       end
+      # 現在のプロセスを終了
+      Process.exit
     else
       response.status = 404
     end
