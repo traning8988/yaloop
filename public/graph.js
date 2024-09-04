@@ -12,6 +12,9 @@ function timeToSeconds(timeStr) {
   return hours * 3600 + minutes * 60 + seconds;
 }
 
+const labels = tasks.map((task) => task.title);
+const datasetData = tasks.map((task) => timeToSeconds(task.time) / 3600); // 時間単位で表現
+
 const data = {
   labels: ["January"],
   datasets: [
