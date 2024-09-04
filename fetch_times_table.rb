@@ -77,15 +77,38 @@ def fetch_report_today
   WHERE
       DATE(created_at) = CURDATE();
   SQL
-  results = client.query(query, as: :hash)
+  result = client.query(query, as: :hash).first
   client.close
 
   # 結果を指定されたJSON形式に変換
-  study_json_datas = results.map do |row|
-    {
-      description: row['description']
-    }
-  end
+  study_json_datas = {
+    description: result['description']
+  }
+
+  study_json_datas
+end
+
+def fetch_user
+  client = Mysql2::Client.new(DB_CONFIG)
+
+  # 日付が今日の日報を取得
+  query = <<-SQL
+  SELECT
+      *
+  FROM
+      users
+  WHERE
+      id = 1;
+  SQL
+  result = client.query(query, as: :hash).first
+  client.close
+
+  # 結果を指定されたJSON形式に変換
+  study_json_datas = {
+    id: result['id'],
+    name: result['name'],
+    email: result['email']
+  }
 
   study_json_datas
 end
