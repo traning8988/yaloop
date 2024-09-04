@@ -57,7 +57,7 @@ def sample_study_duration_datas(sample_study_datas)
     p daily_task_study_durations
 =end
   hours, minutes, seconds = seconds_to_hms(daily_study_durations.values.first).split(":") # 1日の学習時間
-  
+
   $duration = {
     duration_hour: hours,
     duration_minute: minutes,
@@ -87,15 +87,19 @@ end
 
 def daily_report(daily_report_data)
   puts "良かったこと"
-  puts daily_report_data[0][:description]
+  puts daily_report_data[:description]
 end
+
 
 sample_study_datas = fetch_times_data_today
 sample_study_duration_datas(sample_study_datas) unless sample_study_datas.nil? || sample_study_datas.empty?
 
 report_today = fetch_report_today
-$duration = $duration.merge(report_today[0]) unless report_today[0].nil? || report_today[0].empty? # 日報をdurationに追加
+$duration = $duration.merge(report_today) unless report_today.nil? || report_today.empty? # 日報をdurationに追加
 daily_report(report_today) unless report_today.nil? || report_today.empty?
+
+user = { user: fetch_user }
+$duration = $duration.merge(user) unless user.nil? || user.empty?
 
   # $duration[:tasks].each do |task|
   #   puts "#{task[:title]} は #{task[:time]} です"
