@@ -23,7 +23,7 @@ class Router
     case request.path
     when '/'
       serve_file('public/index.html', 'text/html', response)
-    when '/reset.css', '/style.css'
+    when '/reset.css', '/style.css', '/timer&graph.css', '/reports.css'
       serve_file("public#{request.path}", 'text/css', response)
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
