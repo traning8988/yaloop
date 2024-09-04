@@ -35,27 +35,18 @@ def sample_study_duration_datas(sample_study_datas)
   tasks_array = []
   puts "--- やったこと ---"
   total_task_study_durations.each do |task_title, total_seconds|
+    hours, minutes, seconds = seconds_to_hms(total_seconds).split(":")
     task_hash = {
       title: task_title,
-      time: seconds_to_hms_a(total_seconds)
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
     }
     tasks_array << task_hash
 
     puts "#{task_title} : #{seconds_to_hms(total_seconds)}時間"
   end
 
-
-=begin
-  daily_task_study_durations.each do |date, task_titles|
-    puts "\n#{date}:"
-    task_titles.each do |task_title, total_seconds|
-      puts "  #{task_title}: 合計学習時間 #{seconds_to_hms(total_seconds)}"
-    end
-  end
-
-    p total_task_study_durations
-    p daily_task_study_durations
-=end
   hours, minutes, seconds = seconds_to_hms(daily_study_durations.values.first).split(":") # 1日の学習時間
 
   $duration = {
@@ -100,7 +91,3 @@ daily_report(report_today) unless report_today.nil? || report_today.empty?
 
 user = { user: fetch_user }
 $duration = $duration.merge(user) unless user.nil? || user.empty?
-
-  # $duration[:tasks].each do |task|
-  #   puts "#{task[:title]} は #{task[:time]} です"
-  # end

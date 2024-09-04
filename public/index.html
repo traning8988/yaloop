@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reports.css">
     <link rel="stylesheet" href="timer&graph.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -40,10 +41,8 @@
                 </div>
                 <!-- グラフ -->
                 <div class="graph-container">
-                    <h1>◀︎ 2024 / 7 ▶︎</h1>
-                    <div class="graph-display">
-                        <!-- <img src="graph-image.png" alt=""> -->
-
+                    <div style="width: 80%; margin: auto;">
+                        <canvas id="stackedBarChart" height="250"></canvas>
                     </div>
                 </div>
             </div>
@@ -87,6 +86,7 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="graph.js"></script>
     <script src="reports.js"></script>
     <script>
         function restartServer() {

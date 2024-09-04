@@ -30,7 +30,7 @@ function fetchDataAndUpdate() {
 
           const taskTime = document.createElement("p");
           taskTime.className = "task-time"; // タスク時間のクラス名
-          taskTime.textContent = task.time;
+          taskTime.textContent = `${task.hours}時間${task.minutes}分`;
 
           taskDiv.appendChild(taskTitle);
           taskDiv.appendChild(taskTime);
@@ -78,13 +78,6 @@ function fetchDataAndUpdate() {
       const reportTasksContainer = document.querySelector(".report-tasks");
       const reportTasks = reportTasksContainer.querySelectorAll(".report-task");
       // console.log(reportTasks)
-
-      // 要素の数が偶数の場合にクラスを追加
-      if (reportTasks.length % 2 === 0) {
-        div.classList.add("oddtask-color");
-      } else {
-        div.classList.add("eventtask-color");
-      }
 
       const reportContent = document.getElementById("report-content");
       if (reportContent) {
