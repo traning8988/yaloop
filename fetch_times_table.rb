@@ -90,6 +90,21 @@ def fetch_report_today
   study_json_datas
 end
 
+# id で取得する方法
+# def fetch_report_by_id(id)
+#   client = Mysql2::Client.new(DB_CONFIG)
+
+#   query = "SELECT * FROM Daily_Reports WHERE id = #{id};"
+#   result = client.query(query, as: :hash).first
+#   client.close
+
+#   result
+# end
+
+# # idが2のデータを取得
+# report = fetch_report_by_id(2)
+# puts report
+
 def fetch_user
   client = Mysql2::Client.new(DB_CONFIG)
 
