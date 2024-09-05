@@ -52,14 +52,6 @@ class Router
       })
       response['Content-Type'] = 'application/json'
     when '/restart'
-      # response.status = 200
-      # response.content_type = "text/plain"
-      # response.body = "Server is restarting..."
-      # Thread.new do
-      #   sleep 1  # レスポンスが返されるまで少し待つ
-      #   Process.kill('INT', Process.pid)
-      #   exec('ruby server.rb')
-      # end
       response.status = 200
       response.content_type = "text/plain"
       response.body = "Server is restarting..."
@@ -89,38 +81,41 @@ class Router
 
   def insert_task_and_related(title)
     begin
+      # 現在の時間を4時間巻き戻す
+      time = Time.now - (4 * 60 * 60)
+
       @db.query("BEGIN") # トランザクション開始
 
       # tasksテーブルに挿入
-      @db.query("INSERT INTO tasks (title) VALUES ('#{@db.escape(title)}')")
+      @db.query("INSERT INTO tasks (title, created_at, updated_at) VALUES ('#{@db.escape(title)}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
       task_id = @db.last_id
 
       # timesテーブルに挿入
-      @db.query("INSERT INTO times (start_time, tasks_id, end_time) VALUES (NOW(), #{task_id}, NOW())")
+      @db.query("INSERT INTO times (start_time, tasks_id, end_time, created_at, updated_at) VALUES ('#{time.strftime('%Y-%m-%d %H:%M:%S')}', #{task_id}, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
       time_id = @db.last_id
 
       # daily_reportsテーブルに挿入
-      #同じ日の4時から4時までのデータとuseridが一緒であれば更新しない
       @db.query("
-        INSERT IGNORE INTO daily_reports (user_id, created_at)
-        SELECT '1', NOW()
+        INSERT IGNORE INTO daily_reports (user_id, created_at, updated_at)
+        SELECT 1, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}'
         WHERE NOT EXISTS (
           SELECT 1 FROM daily_reports
-          WHERE user_id = '1'
-          AND created_at >= DATE_SUB(CURDATE(), INTERVAL 4 HOUR)
-          AND created_at < DATE_SUB(DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 4 HOUR)
+          WHERE user_id = 1
+          AND created_at >= '#{(time - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
+          AND created_at < '#{(time + (24 * 3600) - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
         );
       ")
+
       daily_report_id = @db.query("
         SELECT id
         FROM daily_reports
-        WHERE user_id = '1'
-        AND created_at >= DATE_SUB(CURDATE(), INTERVAL 4 HOUR)
-        AND created_at < DATE_SUB(DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 4 HOUR);
+        WHERE user_id = 1
+        AND created_at >= '#{(time - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
+        AND created_at < '#{(time + (24 * 3600) - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
       ").first['id']
 
       # daily_tasksテーブルに挿入
-      @db.query("INSERT INTO daily_tasks (tasks_id, daily_reports_id) VALUES (#{task_id}, #{daily_report_id})")
+      @db.query("INSERT INTO daily_tasks (tasks_id, daily_reports_id, created_at, updated_at) VALUES (#{task_id}, #{daily_report_id}, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
 
       @db.query("COMMIT") # トランザクションのコミット
       true
@@ -141,8 +136,9 @@ class Router
         return [false, nil] # タスクが存在しない場合
       end
 
+      time = Time.now - (4 * 60 * 60)
       # end_timeを更新
-      @db.query("UPDATE times SET end_time = NOW() WHERE id = #{max_id}")
+      @db.query("UPDATE times SET end_time = '#{time.strftime('%Y-%m-%d %H:%M:%S')}', updated_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id = #{max_id}")
 
       # 更新されたend_timeを取得
       end_time_result = @db.query("SELECT end_time FROM times WHERE id = #{max_id}")
