@@ -9,10 +9,11 @@ document.getElementById("btn").addEventListener("click", function (event) {
     // ストップ機能
     stopTask(this);
   };
+  const inputElement = document.getElementById('input-button');
   function startTask() {
     // 入力フィールドからタスクを取得
     const taskInput = document.querySelector('.task-input').value;
-
+    
     if (taskInput) {
       // AJAXリクエストを送信
       fetch('/start_data', {
@@ -59,7 +60,8 @@ document.getElementById("btn").addEventListener("click", function (event) {
         
         // <li>を<ul>に追加
         document.querySelector('.report-tasks').appendChild(li);
-        })
+        inputElement.setAttribute('disabled', 'true');
+      })
       .catch(error => {
         console.error('Error:', error);
       });
@@ -90,6 +92,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
           taskTimeElement.textContent = ""; // または data.end_time などのサーバーからの値
         }
       }
+      inputElement.removeAttribute('disabled');
       document.querySelector('.task-input').value = '';
     })
     .catch(error => {
