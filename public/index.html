@@ -48,6 +48,7 @@
             </div>
             <div class="right-side">
                 <!-- 日報 -->
+                <button id="prev">前へ</button>
                 <div class="report-container">
                     <div class="report-top">
                         <p class="report-date"> 2024 / 7 / 31</p>
@@ -79,10 +80,12 @@
                     <div  class="submit-button">
                         <button type="submit">Save</button>
                     </div>
+                    <p></p>
                 </div>
             </div>
         </div>
     </main>
+
 
     <script src="script.js"></script>
     <script src="graph.js"></script>
@@ -109,6 +112,27 @@
                     alert('サーバー再起動に失敗しました。');
                 });
         }
+    
+        fetch('sample.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // JSON形式でレスポンスを取得
+            })
+            .then(data => {
+             
+                const daily_report =data.user.daily_reports[2];
+                console.log("================="); // JSONデータをコンソールに表示
+                console.log(`id:${daily_report.id}`); // JSONデータをコンソールに表示
+                console.log("================="); // JSONデータをコンソールに表示
+                console.log(daily_report.tasks[1]); // JSONデータをコンソールに表示
+
+
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
     </script>
 </body>
 
