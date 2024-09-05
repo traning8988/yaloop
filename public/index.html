@@ -18,10 +18,10 @@
 <body>
     <header>
         <div class="top">
-            <h1 class="logo">Yaloop</h1>
+            <button class="logo" onclick="restartServer()">Yaloop</button>
+        
             <div class="navi">
-                <p id="user-name">username</p>
-                <button onclick="restartServer()">サーバー再起動</button>
+                <p id="user-name">username</p>        
             </div>
         </div>
     </header>
@@ -32,7 +32,7 @@
                 <!-- タイマー -->
                 <div class="timer-container">
                     <form class="timer-input">
-                        <input type="text" class="task-input" placeholder="Add your next mission">
+                        <input type="text" class="task-input" placeholder="Add your task">
                         <button id="btn" class="timer-button">Start</button>
                     </form>
                     <div class="timer-display">
