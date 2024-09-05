@@ -71,6 +71,7 @@ def fetch_report_today
   # 日付が今日の日報を取得
   query = <<-SQL
   SELECT
+      id,
       description
   FROM
       daily_reports
@@ -82,6 +83,7 @@ def fetch_report_today
 
   # 結果を指定されたJSON形式に変換
   study_json_datas = {
+    id: result['id'],
     description: result['description']
   } unless result.nil? || result.empty?
 
