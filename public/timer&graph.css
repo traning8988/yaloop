@@ -1,100 +1,99 @@
 
 :root {
-    --yellow: #FFF898; 
-    --orange: #FF7D11;
-    --green: #28AF40;
-    --blue: #4097FA;
-    --white: #FFFFFF;
-    --gray: #f5f5f5;
-    --light-gray: #f9f9f9;
-    --black: #393939e1;
-    --border-light: 1px solid #eaeaea;
-    --border-value: 1px solid #a7a5a2;
-  }
+  --yellow: #FFF898; 
+  --orange: #FF7D11;
+  --green: #28AF40;
+  --blue: #4097FA;
+  --white: #FFFFFF;
+  --gray: #f5f5f5;
+  --light-gray: #f9f9f9;
+  --black: #393939e1;
+  --border-light: 1px solid #eaeaea;
+  --border-value: 1px solid #a7a5a2;
+}
 
 .left-side {
-    min-width: 400px;
-    max-width: 640px;
-  }
-  
-  .timer-container {
-    background-color: var(--light-gray);
-  
-    height: 240px;
-    border-right: var(--border-value);
-    border-bottom: var(--border-value);
-  }
-  
-  .timer-input {
-    padding: 10px;
-  }
-  
-  .task-input {
-    padding: 8px 16px;
-    width: 320px;
-    height: 48px;
-    border: var(--border-light);
-    border-radius: 20px;
-    font-size: x-large;
-    text-align: center;
-  }
-  
-  .timer-button {
-    margin-left: 20px;
-    width: 140px;
-    height: 58px;
-    font-size: larger;
-    color: white;
-    border-radius: 30px; 
-    background-color: #FF7D11;
-    cursor: pointer;           /* ホバー時にポインタを表示 */
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* ボタンの影 */
-    transition: box-shadow 0.3s ease; /* ホバー時の影の変化をスムーズに */
-  }
-  
-  button:hover {
-    box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
-  }
-  
-  .timer-display {
-    display: flex;
-    justify-content: center;
+  min-width: 400px;
+  max-width: 640px;
+}
 
-    margin-bottom: 36px;
-  }
-  .timer-display h1 {
+.timer-container {
+  background-color: var(--light-gray);
 
-    font-weight: 600;
-    font-size: 140px;
-    color: var(--black);
-    
-  }
+  height: 220px;
+  border-right: var(--border-value);
+  border-bottom: var(--border-value);
+}
+
+.timer-input {
+  padding: 12px 10px;
+}
+
+.task-input {
+  padding: 8px 16px;
+  width: 320px;
+  height: 40px;
+  border: var(--border-light);
+  border-radius: 20px;
+  font-size: x-large;
+  text-align: center;
+}
+
+.timer-button {
+  margin-left: 20px;
+  width: 140px;
+  height: 50px;
+  font-size: larger;
+  color: white;
+  border-radius: 30px; 
+  background-color: #FF7D11;
+  cursor: pointer;           /* ホバー時にポインタを表示 */
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* ボタンの影 */
+  transition: box-shadow 0.3s ease; /* ホバー時の影の変化をスムーズに */
+}
+
+button:hover {
+  box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
+}
+
+.timer-display {
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 36px;
+}
+.timer-display h1 {
+
+  font-weight: 600;
+  font-size: 120px;
+  color: var(--black);
   
+}
+
+
+.graph-container {
+  background-color: var(--light-gray);
+  justify-content: center;
+  align-items: center;  
+  height: 400px;
+  margin-top: 15px;
+  border-right: var(--border-value);
+  border-bottom: var(--border-value);
+}
+
+.graph-container h1 {
+  color: var(--black);
+  padding: 10px;
+  font-size: larger;
+  text-align: center;
   
-  .graph-container {
-    background-color: var(--light-gray);
-    display: block;
-    justify-content: center;
-    align-items: center;  
-    height: 380px;
-    margin-top: 15px;
-    border-right: var(--border-value);
-    border-bottom: var(--border-value);
-  }
-  
-  .graph-container h1 {
-    color: var(--black);
-    padding: 10px;
-    font-size: larger;
-    text-align: center;
-    
-  }
-  .graph-display {
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-  }
-  .graph-display img {
-    width: auto;
-    height: 350px;
-  }
+}
+.graph-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.graph-display img {
+  width: auto;
+  height: 350px;
+}
