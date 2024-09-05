@@ -83,7 +83,7 @@ def fetch_report_today
   # 結果を指定されたJSON形式に変換
   study_json_datas = {
     description: result['description']
-  }
+  } unless result.nil? || result.empty?
 
   study_json_datas
 end
