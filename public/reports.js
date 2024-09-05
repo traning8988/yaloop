@@ -80,13 +80,23 @@ document.getElementById("btn").addEventListener("click", function (event) {
     .then(response => response.json())
     .then(data => {
       console.log('Task ended:', data);
+      const reportTasksContainer = document.querySelector('.report-tasks');
+      const lastTask = reportTasksContainer.lastElementChild;
+      
+      if (lastTask) {
+        // lastTask内のtask-timeクラスを持つ要素を見つけて更新
+        const taskTimeElement = lastTask.querySelector('.task-time');
+        if (taskTimeElement) {
+          taskTimeElement.textContent = ""; // または data.end_time などのサーバーからの値
+        }
+      }
       document.querySelector('.task-input').value = '';
     })
     .catch(error => {
       console.error('Error:', error);
     });
-   
-    // ボタンをストップボタンに変更
+    main_restartServer()
+    // ボタンをスタートボタンに変更
     const button = document.getElementById("btn");
     button.textContent = "Start";
     button.style.backgroundColor = "#FF7D11"
@@ -171,4 +181,62 @@ function enableEdit() {
     div.style.display = 'block';
     textarea.remove();
   });
+}
+
+// function main_restartServer() {
+//   fetch('/restart', { method: 'POST' })
+//       .then(response => {
+//           if (response.ok) {
+//               return response.text();
+//           } else {
+//               throw new Error('Server restart failed');
+//           }
+//       })
+//       .then(data => {
+//           console.log(data);
+//           // サーバー再起動後にページをリロード
+//           setTimeout(() => {
+//           window.location.reload();
+//           }, 200); // 2秒後にリロード
+//       })
+//       .catch(error => {
+//           console.error('Error:', error);
+//           alert('サーバー再起動に失敗しました。');
+//       });
+// }
+  
+function main_restartServer() {
+  fetch('/restart', { method: 'POST' })
+    .then(response => {
+      if (response.ok) {
+        return response.text();
+      } else {
+        throw new Error('Server restart failed');
+      }
+    })
+    .then(data => {
+      console.log(data);
+      // サーバー再起動後にページをリロード
+      checkServerStatusAndReload();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('サーバー再起動に失敗しました。');
+    });
+}
+
+function checkServerStatusAndReload() {
+  // サーバーが再起動したかどうかをチェックする
+  const checkInterval = setInterval(() => {
+    fetch('/data') // サーバーが正常に動作しているか確認するためのエンドポイント
+      .then(response => {
+        if (response.ok) {
+          clearInterval(checkInterval);
+          window.location.reload(); // サーバーが再起動したらリロード
+        }
+      })
+      .catch(error => {
+        console.error('Server is not ready yet:', error);
+      });
+  }, 1000); // 1秒ごとにチェック
 }
