@@ -27,6 +27,10 @@ def insert_dummy_data(client)
     puts "タスクデータを挿入しました。"
 
     # 日報データの挿入
+    client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('仮に三日前のデータとしての作業報告', 1)")
+    puts "日報データを挿入しました。"
+    client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('仮に昨日のデータとしての作業報告', 1)")
+    puts "日報データを挿入しました。"
     client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('今日の作業報告', 1)")
     puts "日報データを挿入しました。"
 
