@@ -1,11 +1,12 @@
 require 'time'
 require_relative 'fetch_times_table'
+$duration = {} # 1日のデータを全て入れる
+
 
 def sample_study_duration_datas(sample_study_datas)
   daily_study_durations = {}
   total_task_study_durations = {}
   daily_task_study_durations = {}
-  $duration = {} # 1日のデータを全て入れる
 
   sample_study_datas.each do |sample_study_data|
     start_time = Time.parse(sample_study_data[:start_time])
