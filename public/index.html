@@ -50,6 +50,7 @@
                 <!-- 日報 -->
                 <div class="report-container">
                     <div class="report-top">
+                        <button id="prev">◀︎</button>
                         <p class="report-date"> 2024 / 7 / 31</p>
                         <p id="content" class="report-totaltime">学習時間: 00時間 00分</p>
                         <!-- <p class="report-totaltime">total time: 07:30</p> -->
@@ -109,6 +110,29 @@
                     alert('サーバー再起動に失敗しました。');
                 });
         }
+
+function fetchPrevReport() {
+    fetch("/data")
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);  // レスポンス全体を確認
+        console.log(data.duration_hour);  // データをコンソールに表示
+        console.log(data.duration_min);  // データをコンソールに表示
+        console.log(data.tasks.length);  // データをコンソールに表示
+        console.log(data.description);  // データをコンソールに表示
+        console.log(data.user.name);  // データをコンソールに表示
+    })
+  }
+// ボタンにイベントリスナーを設定
+document.addEventListener("DOMContentLoaded", () => {
+    const prevButton = document.getElementById("prev");
+
+    if (prevButton) {
+        prevButton.addEventListener("click", fetchPrevReport);
+    }
+    fetchPrevReport();
+});
+
     </script>
 </body>
 
