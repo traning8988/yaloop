@@ -1,6 +1,9 @@
 require 'time'
 require_relative 'fetch_times_table'
-$duration = {} # 1日のデータを全て入れる
+$duration = {
+  duration_hour: '00',
+  duration_minute: '00'
+} # 1日のデータを全て入れる
 
 
 def sample_study_duration_datas(sample_study_datas)

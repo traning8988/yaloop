@@ -27,7 +27,7 @@ class Router
       serve_file("public#{request.path}", 'text/css', response)
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
-    when '/reports.js', '/script.js', '/graph.js'
+    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js'
       serve_file("public#{request.path}", 'application/javascript', response)
     when '/data'
       response.body = JSON.generate(@duration)
@@ -64,8 +64,7 @@ class Router
         sleep 0.1  # ほんの少し待ってから再起動
         exec('ruby server.rb')
       end
-      # 現在のプロセスを終了
-      Process.exit
+      return
     else
       response.status = 404
     end
@@ -99,24 +98,22 @@ class Router
       time_id = @db.last_id
 
       # daily_reportsテーブルに挿入
-      @db.query("
-        INSERT IGNORE INTO daily_reports (user_id, created_at, updated_at)
-        SELECT 1, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}'
-        WHERE NOT EXISTS (
-          SELECT 1 FROM daily_reports
-          WHERE user_id = 1
-          AND created_at >= '#{(time - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
-          AND created_at < '#{(time + (24 * 3600) - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
-        );
-      ")
-
-      daily_report_id = @db.query("
-        SELECT id
-        FROM daily_reports
+      existing_report = @db.query("
+        SELECT id FROM daily_reports
         WHERE user_id = 1
         AND created_at >= '#{(time - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
         AND created_at < '#{(time + (24 * 3600) - (time.hour * 3600)).strftime('%Y-%m-%d %H:%M:%S')}'
-      ").first['id']
+      ").first
+
+      if existing_report
+        daily_report_id = existing_report['id']
+      else
+        @db.query("
+          INSERT INTO daily_reports (user_id, created_at, updated_at)
+          VALUES (1, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')
+        ")
+        daily_report_id = @db.last_id
+      end
 
       # daily_tasksテーブルに挿入
       @db.query("INSERT INTO daily_tasks (tasks_id, daily_reports_id, created_at, updated_at) VALUES (#{task_id}, #{daily_report_id}, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
