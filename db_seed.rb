@@ -2,15 +2,7 @@ require_relative 'database'
 
 def insert_dummy_data(client)
   begin
-    # ユーザーデータの挿入
-    users = [
-      { name: "阿川", email: "agawa@example.com" }
-    ]
-
-    users.each do |user|
-      client.query("INSERT INTO users (name, email) VALUES ('#{user[:name]}', '#{user[:email]}')")
-    end
-    puts "ユーザーデータを挿入しました。"
+    # ユーザーデータは別で挿入
 
     # タスクデータの挿入
     tasks = [
@@ -27,10 +19,6 @@ def insert_dummy_data(client)
     puts "タスクデータを挿入しました。"
 
     # 日報データの挿入
-    client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('仮に三日前のデータとしての作業報告', 1)")
-    puts "日報データを挿入しました。"
-    client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('仮に昨日のデータとしての作業報告', 1)")
-    puts "日報データを挿入しました。"
     client.query("INSERT INTO Daily_Reports (description, user_id) VALUES ('今日の作業報告', 1)")
     puts "日報データを挿入しました。"
 
@@ -66,8 +54,9 @@ begin
   Database.create_tables
 
   # 仮データの挿入
-  insert_dummy_data(client)
-
+  client.query("INSERT INTO users (name, email) VALUES ('阿川', 'agawa@example.com')")
+  # insert_dummy_data(client)
+  
   # テーブル構造とデータの確認
   tables = ['Tasks', 'users', 'Daily_Reports', 'Daily_Tasks', 'times']
   tables.each do |table|

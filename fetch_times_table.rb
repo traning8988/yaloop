@@ -95,12 +95,7 @@ def fetch_user
 
   # 日付が今日の日報を取得
   query = <<-SQL
-  SELECT
-      *
-  FROM
-      users
-  WHERE
-      id = 1;
+  SELECT * FROM users WHERE id = 1;
   SQL
   result = client.query(query, as: :hash).first
   client.close
@@ -110,7 +105,7 @@ def fetch_user
     id: result['id'],
     name: result['name'],
     email: result['email']
-  }
+  } unless result.nil? || result.empty?
 
   study_json_datas
 end

@@ -1,3 +1,5 @@
+import { toggleCountUp } from './countUp.js';
+
 document.getElementById("btn").addEventListener("click", function (event) {
   event.preventDefault();  // フォームのデフォルトの送信を防ぐ
 
@@ -26,6 +28,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
       .then(response => response.json())
       .then(data => {
         console.log('Response data:', data); // レスポンスを確認
+        toggleCountUp();
         const li = document.createElement('li');
         li.classList.add("report-task");
         
@@ -82,6 +85,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
     .then(response => response.json())
     .then(data => {
       console.log('Task ended:', data);
+      toggleCountUp();
       const reportTasksContainer = document.querySelector('.report-tasks');
       const lastTask = reportTasksContainer.lastElementChild;
       
@@ -158,56 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-//free-boxの編集機能
-function enableEdit() {
-  const div = document.getElementById('editable-area');
-  const text = div.innerText.trim();
 
-  // textareaを生成
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  // textarea.style.width = '440px';
-  // textarea.style.height = '280px';
-  textarea.class = 'free-box';
-  textarea.id = 'free-box';
-
-  // divを非表示にしてtextareaを表示
-  div.style.display = 'none';
-  div.parentNode.insertBefore(textarea, div);
-
-  // textareaにフォーカスを当てる
-  textarea.focus();
-
-  // 外部をクリックしたらtextareaの内容をdivに戻す
-  textarea.addEventListener('blur', function() {
-    div.innerText = textarea.value.trim() || '【よかった点】【改善点】【明日へ決意】'; // 空の場合、デフォルトテキストを表示
-    div.style.display = 'block';
-    textarea.remove();
-  });
-}
-
-// function main_restartServer() {
-//   fetch('/restart', { method: 'POST' })
-//       .then(response => {
-//           if (response.ok) {
-//               return response.text();
-//           } else {
-//               throw new Error('Server restart failed');
-//           }
-//       })
-//       .then(data => {
-//           console.log(data);
-//           // サーバー再起動後にページをリロード
-//           setTimeout(() => {
-//           window.location.reload();
-//           }, 200); // 2秒後にリロード
-//       })
-//       .catch(error => {
-//           console.error('Error:', error);
-//           alert('サーバー再起動に失敗しました。');
-//       });
-// }
-  
 function main_restartServer() {
   fetch('/restart', { method: 'POST' })
     .then(response => {

@@ -36,7 +36,7 @@
                         <button id="btn" class="timer-button">Start</button>
                     </form>
                     <div class="timer-display">
-                        <h1>00:00</h1>
+                        <h1 id="timer">00:00:00</h1>
                     </div>
                 </div>
                 <!-- グラフ -->
@@ -86,7 +86,8 @@
 
     <script src="script.js"></script>
     <script src="graph.js"></script>
-    <script src="reports.js"></script>
+    <script src="textarea.js"></script>
+    <script type="module" src="reports.js" defer></script>
     <script>
         function restartServer() {
             fetch('/restart', { method: 'POST' })
