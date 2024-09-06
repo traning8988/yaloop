@@ -28,6 +28,7 @@ class Router
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
 
+
     when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/idChange.js'
 
       serve_file("public#{request.path}", 'application/javascript', response)
