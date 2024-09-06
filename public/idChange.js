@@ -72,22 +72,22 @@ document.addEventListener("DOMContentLoaded", function() {
         taskList.className = "task-list";
 
         const todayTasks = data.today.tasks;
-        todayTasks.forEach(task => {
-          const taskItem = document.createElement("li");
-          taskItem.className = "task-item";
+        // todayTasks.forEach(task => {
+        //   const taskItem = document.createElement("li");
+        //   taskItem.className = "task-item";
           
-          const taskTitle = document.createElement("p");
-          taskTitle.className = "task-title";
-          taskTitle.textContent = task.title;
+        //   const taskTitle = document.createElement("p");
+        //   taskTitle.className = "task-title";
+        //   taskTitle.textContent = task.title;
  
-          const taskTime = document.createElement("p");
-          taskTime.className = "task-time";
-          taskTime.textContent = `${task.hours}時間 ${task.minutes}分 ${task.seconds}秒`;
+        //   const taskTime = document.createElement("p");
+        //   taskTime.className = "task-time";
+        //   taskTime.textContent = `${task.hours}時間 ${task.minutes}分 ${task.seconds}秒`;
 
-          taskItem.appendChild(taskTitle);
-          taskItem.appendChild(taskTime);
-          taskList.appendChild(taskItem);
-        });
+        //   taskItem.appendChild(taskTitle);
+        //   taskItem.appendChild(taskTime);
+        //   taskList.appendChild(taskItem);
+        // });
 
         content.appendChild(taskList);
       }
