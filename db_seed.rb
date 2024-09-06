@@ -56,7 +56,7 @@ begin
   # 仮データの挿入
   client.query("INSERT INTO users (name, email) VALUES ('阿川', 'agawa@example.com')")
   # insert_dummy_data(client)
-  
+
   # テーブル構造とデータの確認
   tables = ['Tasks', 'users', 'Daily_Reports', 'Daily_Tasks', 'times']
   tables.each do |table|
