@@ -2,6 +2,7 @@ export function graphToday() {
   fetch("/data")
     .then((response) => response.json())
     .then((data) => {
+      const todayData = data.today
       const ctx = document.getElementById("stackedBarChart").getContext("2d");
 
       function timeToSeconds(hours, minutes, seconds) {
@@ -9,8 +10,8 @@ export function graphToday() {
       }
 
       const today = new Date();
-      const labels = data.tasks.map((task) => task.title);
-      const datasetData = data.tasks.map((task) =>
+      const labels = todayData.tasks.map((task) => task.title);
+      const datasetData = todayData.tasks.map((task) =>
         (timeToSeconds(task.hours, task.minutes, task.seconds) / 3600).toFixed(
           1
         )

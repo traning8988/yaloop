@@ -3,6 +3,7 @@ function fetchDataAndUpdate() {
     .then((response) => response.json())
     .then((data) => {
       // content要素の取得と更新
+      const todayData = data.today
       const content = document.getElementById("content");
       if (content) {
         content.innerHTML = "";
@@ -10,7 +11,7 @@ function fetchDataAndUpdate() {
         // 学習時間を表示する要素を作成
         const timeParagraph = document.createElement("p");
         timeParagraph.className = "report-totaltime"; // クラス名を設定
-        timeParagraph.textContent = `Total: ${data.duration_hour}時間 ${data.duration_minute}分`;
+        timeParagraph.textContent = `Total: ${todayData.duration_hour}時間 ${todayData.duration_minute}分`;
         content.appendChild(timeParagraph);
       }
 
@@ -20,7 +21,7 @@ function fetchDataAndUpdate() {
         taskContainer.innerHTML = "";
 
         // タスクのリストを生成
-        data.tasks.forEach((task, index) => {
+        todayData.tasks.forEach((task, index) => {
           const taskDiv = document.createElement("div");
           taskDiv.className = "report-task"; // タスクコンテナのクラス名
 
@@ -86,7 +87,7 @@ function fetchDataAndUpdate() {
         // 学習時間を表示する要素を作成
         const reportParagraph = document.createElement("p");
         reportParagraph.className = ""; // クラス名を設定
-        reportParagraph.textContent = `日報\n ${data.description}`;
+        reportParagraph.textContent = `日報\n ${todayData.description}`;
         reportContent.appendChild(reportParagraph);
       }
 
@@ -97,7 +98,7 @@ function fetchDataAndUpdate() {
         // 学習時間を表示する要素を作成
         const userParagraph = document.createElement("p");
         userParagraph.className = ""; // クラス名を設定
-        userParagraph.textContent = `${data.user.name}`;
+        userParagraph.textContent = `${todayData.user.name}`;
         userContent.appendChild(userParagraph);
       }
     })
