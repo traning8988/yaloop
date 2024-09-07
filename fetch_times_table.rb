@@ -110,6 +110,37 @@ def fetch_user
   study_json_datas
 end
 
+def fetch_total_times
+  client = Mysql2::Client.new(DB_CONFIG)
+
+  # 日付が今日の日報を取得
+  query = <<-SQL
+  SELECT
+    DATE(start_time) AS date,
+    SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, start_time, end_time))) AS total_time
+  FROM
+    times
+  WHERE
+    start_time >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+  GROUP BY
+    DATE(start_time)
+  ORDER BY
+    DATE(start_time);
+  SQL
+  results = client.query(query, as: :hash)
+  client.close
+
+  # 結果を指定されたJSON形式に変換
+  study_json_datas = results.map do |row|
+    {
+    date: row['date'],
+    total_time: row['total_time'].strftime('%H:%M:%S')
+    }
+  end
+
+  study_json_datas
+end
+
 # メソッドを呼び出してJSONを出力
 # puts fetch_times_data_today
 # puts fetch_report_today[0][:description]
