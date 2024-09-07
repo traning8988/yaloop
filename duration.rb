@@ -134,5 +134,3 @@ $duration = $duration.merge(user) unless user.nil? || user.empty?
 
 total_times = { total_times: fetch_total_times }
 $duration = $duration.merge(total_times) unless total_times.nil? || total_times.empty?
-
-p $duration
