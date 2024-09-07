@@ -6,37 +6,7 @@ export function graphMonth() {
 
       // monthDataを使用してグラフを作成
 
-      const monthData = [
-        { date: "2024-08-10", total_time: "03:52:00" },
-        { date: "2024-08-11", total_time: "05:10:45" },
-        { date: "2024-08-12", total_time: "06:15:30" },
-        { date: "2024-08-13", total_time: "04:25:18" },
-        { date: "2024-08-14", total_time: "07:05:00" },
-        { date: "2024-08-15", total_time: "04:48:30" },
-        { date: "2024-08-16", total_time: "05:33:15" },
-        { date: "2024-08-17", total_time: "03:40:00" },
-        { date: "2024-08-18", total_time: "06:22:45" },
-        { date: "2024-08-19", total_time: "12:55:30" },
-        { date: "2024-08-20", total_time: "06:00:00" },
-        { date: "2024-08-21", total_time: "05:10:15" },
-        { date: "2024-08-22", total_time: "03:45:30" },
-        { date: "2024-08-23", total_time: "06:20:00" },
-        { date: "2024-08-24", total_time: "05:42:30" },
-        { date: "2024-08-25", total_time: "04:30:00" },
-        { date: "2024-08-26", total_time: "06:50:45" },
-        { date: "2024-08-27", total_time: "05:20:30" },
-        { date: "2024-08-28", total_time: "07:10:00" },
-        { date: "2024-08-29", total_time: "06:40:20" },
-        { date: "2024-08-30", total_time: "04:25:00" },
-        { date: "2024-08-31", total_time: "05:52:00" },
-        { date: "2024-09-01", total_time: "06:18:30" },
-        { date: "2024-09-02", total_time: "05:47:10" },
-        { date: "2024-09-03", total_time: "04:08:00" },
-        { date: "2024-09-04", total_time: "07:17:00" },
-        { date: "2024-09-05", total_time: "06:30:07" },
-        { date: "2024-09-06", total_time: "04:21:20" },
-        { date: "2024-09-07", total_time: "05:25:00" },
-      ];
+      const monthData = data.total_times;
 
       const formattedDates = monthData.map((item) => {
         const date = new Date(item.date);
@@ -92,7 +62,7 @@ export function graphMonth() {
           x: {
             title: {
               display: true,
-              text: "日付",
+              text: "",
             },
             ticks: {
               autoSkip: false,
