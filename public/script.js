@@ -4,7 +4,21 @@ function fetchDataAndUpdate() {
     .then((data) => {
       // content要素の取得と更新
       const todayData = data.today;
-      const durationHour = todayData.duration_hour || "0";
+
+      const dateToday = document.getElementById("dateToday");
+      if (dateToday) {
+        dateToday.innerHTML = "";
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+
+        const dateParagraph = document.createElement("p");
+        dateParagraph.className = "";
+        dateParagraph.textContent = `${year} / ${month} / ${day}`;
+        dateToday.appendChild(dateParagraph);
+      }
 
       const content = document.getElementById("content");
       if (content) {
