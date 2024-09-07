@@ -2,16 +2,21 @@ export function graphToday() {
   fetch("/data")
     .then((response) => response.json())
     .then((data) => {
-      const todayData = data.today
+      const todayData = data.today;
       const ctx = document.getElementById("stackedBarChart").getContext("2d");
 
       function timeToSeconds(hours, minutes, seconds) {
         return Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
       }
 
-      const today = new Date();
-      const labels = todayData.tasks.map((task) => task.title);
-      const datasetData = todayData.tasks.map((task) =>
+      // tasksキーが存在するか確認
+      const tasks =
+        todayData.hasOwnProperty("tasks") && todayData.tasks.length > 0
+          ? todayData.tasks
+          : [{ title: "No Data", hours: "0", minutes: "0", seconds: "0" }];
+
+      const labels = tasks.map((task) => task.title);
+      const datasetData = tasks.map((task) =>
         (timeToSeconds(task.hours, task.minutes, task.seconds) / 3600).toFixed(
           1
         )
@@ -53,23 +58,24 @@ export function graphToday() {
         plugins: {
           title: {
             display: true,
-            text: [`${today.getMonth() + 1}/${today.getDate()}の学習時間`],
+            text: [
+              `${new Date().getMonth() + 1}/${new Date().getDate()}の学習時間`,
+            ],
           },
           tooltip: {
             intersect: false,
             callbacks: {
               title: function (tooltipItems) {
-                // ツールチップのタイトル部分をカスタマイズ
                 return ``;
               },
               label: function (tooltipItem) {
-                // データセットのラベルを取得して表示
                 const datasetLabel = tooltipItem.dataset.label;
                 const value = parseFloat(tooltipItem.raw);
-                return `${datasetLabel}: ${value.toFixed(1)} hours`;
+                return datasetLabel !== "No Data"
+                  ? `${datasetLabel}: ${value.toFixed(1)} hours`
+                  : "データがありません";
               },
-              footer: function (tooltipItems) {
-                // ツールチップのフッター部分をカスタマイズ（ここでは空にしています）
+              footer: function () {
                 return "";
               },
             },

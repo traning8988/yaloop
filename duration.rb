@@ -3,7 +3,15 @@ require_relative 'fetch_times_table'
 $duration = {
   duration_hour: "00",
   duration_minute: "00",
-  duration_second: "00"
+  duration_second: "00",
+  tasks:[{
+    title: "NO DATA",
+    hours: "00",
+    minutes: "00",
+    seconds: "00"
+    }],
+  id: 1,
+  description: "今日の作業報告"
 } # 1日のデータを全て入れる
 
 
@@ -89,16 +97,19 @@ end
 today_study_datas = fetch_times_data(0) # 0で今日
 today_datas = sample_study_duration_datas(today_study_datas) unless today_study_datas.nil? || today_study_datas.empty?
 report_today = fetch_report(0)
+today_datas ||= {}
 today_datas = today_datas.merge(report_today) unless report_today.nil? || report_today.empty?
 
 yesterday_study_datas = fetch_times_data(1) # １で昨日
 yesterday_datas = sample_study_duration_datas(yesterday_study_datas) unless yesterday_study_datas.nil? || yesterday_study_datas.empty?
 report_yesterday = fetch_report(1)
+today_datas ||= {}
 yesterday_datas = yesterday_datas.merge(report_yesterday) unless report_yesterday.nil? || report_yesterday.empty?
 
 day_before_yesterday_study_datas = fetch_times_data(2) # 2で一昨日
 day_before_yesterday_datas = sample_study_duration_datas(day_before_yesterday_study_datas) unless day_before_yesterday_study_datas.nil? || day_before_yesterday_study_datas.empty?
 report_day_before_yesterday = fetch_report(2)
+today_datas ||= {}
 day_before_yesterday_datas = day_before_yesterday_datas.merge(report_day_before_yesterday) unless report_day_before_yesterday.nil? || report_day_before_yesterday.empty?
 
 times_data_last_three_days = {
