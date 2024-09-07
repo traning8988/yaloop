@@ -179,3 +179,8 @@ button:hover {
 
 
 
+
+#timer {
+  font-family: Arial, sans-serif; 
+  color: var(--subblack);
+}

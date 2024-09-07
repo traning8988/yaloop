@@ -27,7 +27,7 @@ class Router
       serve_file("public#{request.path}", 'text/css', response)
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
-    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js'
+    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/save.js'
       serve_file("public#{request.path}", 'application/javascript', response)
     when '/data'
       response.body = JSON.generate(@duration)
@@ -65,6 +65,12 @@ class Router
         exec('ruby server.rb')
       end
       return
+    when '/save_report'
+      data = JSON.parse(request.body)
+      description = data['description']
+      result = save_report(description)
+      response.body = JSON.generate({ status: result ? 'success' : 'error' })
+      response['Content-Type'] = 'application/json'
     else
       response.status = 404
     end
@@ -149,6 +155,53 @@ class Router
     rescue Mysql2::Error => e
       puts "データベースエラー: #{e.message}"
       [false, nil]
+    end
+  end
+
+  def save_report(description)
+    begin
+      puts "Starting to save report..."
+      @db.query("BEGIN")
+      time = Time.now - (4 * 60 * 60)
+
+       # デバッグ用：現在の日付のフォーマットを表示
+      formatted_date = time.strftime('%Y-%m-%d')
+      puts "Checking for reports on date: #{formatted_date}"
+
+      # 現在の日付のdaily_reportを取得
+      result = @db.query("
+        SELECT id FROM daily_reports
+        WHERE user_id = 1 AND DATE(created_at) = '#{formatted_date}'
+      ")
+
+      # デバッグ用：取得した結果を表示
+      puts "Query result count: #{result.count}"
+
+      if result.count > 0
+        # 既存のレポートを更新
+        daily_report_id = result.first['id']
+        puts "Updating report with ID: #{daily_report_id}"
+        @db.query("
+          UPDATE daily_reports
+          SET description = '#{@db.escape(description)}', updated_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'
+          WHERE id = #{daily_report_id}
+        ")
+      else
+        # 新しいレポートを挿入
+        puts "Inserting new report"
+        @db.query("
+          INSERT INTO daily_reports (user_id, description, created_at, updated_at)
+          VALUES (1, '#{@db.escape(description)}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')
+        ")
+      end
+
+      @db.query("COMMIT")
+      puts "Report saved successfully"
+      true
+    rescue Mysql2::Error => e
+      @db.query("ROLLBACK")
+      puts "データベースエラー: #{e.message}"
+      false
     end
   end
 end
