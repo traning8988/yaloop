@@ -27,7 +27,6 @@
     </header>
     <main class="app">
         <div class="container">
-
             <div class="left-side">
                 <!-- タイマー -->
                 <div class="timer-container">
@@ -41,8 +40,9 @@
                 </div>
                 <!-- グラフ -->
                 <div class="graph-container">
-                    <div style="width: 80%; margin: auto;">
+                    <div style="width: 80%; padding-top: 10px;  margin: auto;">
                         <button id="btnPage1">Today</button>
+                        <span>/</span>
                         <button id="btnPage2">Month</button>
 
                         <div id="page1" class="page"><canvas id="stackedBarChart" height="250"></canvas></div>
@@ -54,7 +54,7 @@
                 <!-- 日報 -->
                 <div class="report-container">
                     <div class="report-top">
-                        <p id="dateToday" class="report-date"> 2024 / 7 / 31</p>
+                        <p id="dateToday" class="report-date"> 2024 / 1 / 31</p>
                         <p id="content" class="report-totaltime">学習時間: 00時間 00分</p>
                         <!-- <p class="report-totaltime">total time: 07:30</p> -->
                     </div>
@@ -87,11 +87,15 @@
             </div>
         </div>
     </main>
+    <button class="button-left" id="add-1h-btn">Ruby+2h</button><br>
+    <button class="button-left" id="add-1h-btn1">Next.js+2h</button><br>
+    <button class="button-left" id="add-1h-btn2">オブジェクト指向+2h</button>
 
     <script src="script.js"></script>
     <script type="module" src="graph.js"></script>
     <script src="textarea.js"></script>
     <script src="save.js" defer></script>
+    <script src="dummy.js" defer></script>
     <script type="module" src="reports.js" defer></script>
     <script>
         function restartServer() {
