@@ -79,14 +79,14 @@ function fetchDataAndUpdate() {
       const reportTasks = reportTasksContainer.querySelectorAll(".report-task");
       // console.log(reportTasks)
 
-      const reportContent = document.getElementById("report-content");
+      const reportContent = document.getElementById("editable-area");
       if (reportContent) {
         reportContent.innerHTML = "";
 
         // 学習時間を表示する要素を作成
         const reportParagraph = document.createElement("p");
         reportParagraph.className = ""; // クラス名を設定
-        reportParagraph.textContent = `日報\n ${data.description}`;
+        reportParagraph.textContent = `${data.description}`;
         reportContent.appendChild(reportParagraph);
       }
 
