@@ -70,7 +70,7 @@
                     </div>
                     <div class="report-box">
                     <small class="small">▼Click</small>
-                    <div id="editable-area" class="editable-area" onclick="enableEdit()">
+                    <div id="editable-area" class="editable-area" onclick="enableEdit()" style="white-space: pre-wrap;">
 【よかった点】
 <br><br><br>
 【改善点】
@@ -81,7 +81,7 @@
                     </div>
                     </div>
                     <div  class="submit-button">
-                        <button type="submit">Save</button>
+                        <button id="save-btn" type="submit">Save</button>
                     </div>
                 </div>
             </div>
@@ -91,6 +91,7 @@
     <script src="script.js"></script>
     <script type="module" src="graph.js"></script>
     <script src="textarea.js"></script>
+    <script src="save.js" defer></script>
     <script type="module" src="reports.js" defer></script>
     <script>
         function restartServer() {

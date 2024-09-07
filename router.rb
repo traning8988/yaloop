@@ -27,7 +27,7 @@ class Router
       serve_file("public#{request.path}", 'text/css', response)
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
-    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/graphToday.js', '/graphMonth.js'
+    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/save.js', '/graphToday.js', '/graphMonth.js'
       serve_file("public#{request.path}", 'application/javascript', response)
     when '/data'
       response.body = JSON.generate(@duration)
@@ -65,6 +65,13 @@ class Router
         exec('ruby server.rb')
       end
       return
+    when '/save_report'
+      data = JSON.parse(request.body)
+      description = data['description']
+      date = data['date']
+      result = save_report(description, date)
+      response.body = JSON.generate({ status: result ? 'success' : 'error' })
+      response['Content-Type'] = 'application/json'
     else
       response.status = 404
     end
@@ -132,11 +139,7 @@ class Router
       # 最後のタスクのIDを取得
       max_id_result = @db.query("SELECT MAX(id) AS max_id FROM times")
       max_id = max_id_result.first['max_id']
-
-      if max_id.nil?
-        return [false, nil] # タスクが存在しない場合
-      end
-
+      return [false, nil] if max_id.nil?
       time = Time.now - (4 * 60 * 60)
       # end_timeを更新
       @db.query("UPDATE times SET end_time = '#{time.strftime('%Y-%m-%d %H:%M:%S')}', updated_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}' WHERE id = #{max_id}")
@@ -149,6 +152,58 @@ class Router
     rescue Mysql2::Error => e
       puts "データベースエラー: #{e.message}"
       [false, nil]
+    end
+  end
+
+  def save_report(description, date)
+    begin
+      puts "Starting to save report..."
+      @db.query("BEGIN")
+      time = Time.now - (4 * 60 * 60)
+      day = date.split(" / ")
+      target_date = Date.new(day[0].to_i, day[1].to_i, day[2].to_i)
+      formatted_date = target_date.strftime('%Y-%m-%d')
+
+      sample_created_at = "#{formatted_date} 00:00:00"
+
+      puts formatted_date  # => "2024-07-31"
+      puts "Checking for reports on date: #{formatted_date}"
+
+      # 指定の日付のdaily_reportを取得
+      result = @db.query("
+        SELECT id FROM daily_reports
+        WHERE user_id = 1 AND DATE(created_at) = '#{formatted_date}'
+      ")
+
+      # デバッグ用：取得した結果を表示
+      puts "Query result count: #{result.count}"
+
+      if result.count > 0
+        # 既存のレポートを更新
+        daily_report_id = result.first['id']
+        puts "Updating report with ID: #{daily_report_id}"
+        @db.query("
+          UPDATE daily_reports
+          SET description = '#{@db.escape(description)}', updated_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'
+          WHERE id = #{daily_report_id}
+        ")
+      else
+        # 新しいレポートを挿入
+        # startボタンを押す前にsaveを押した場合の対応
+        puts "Inserting new report"
+        @db.query("
+          INSERT INTO daily_reports (user_id, description, created_at, updated_at)
+          VALUES (1, '#{@db.escape(description)}', '#{sample_created_at}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')
+        ")
+      end
+
+      @db.query("COMMIT")
+      puts "Report saved successfully"
+      true
+    rescue Mysql2::Error => e
+      @db.query("ROLLBACK")
+      puts "データベースエラー: #{e.message}"
+      false
     end
   end
 end
