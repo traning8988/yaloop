@@ -65,7 +65,6 @@ export function graphMonth() {
               text: "",
             },
             ticks: {
-              autoSkip: false,
               maxRotation: 90,
               minRotation: 45,
             },
