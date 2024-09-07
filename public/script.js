@@ -3,14 +3,35 @@ function fetchDataAndUpdate() {
     .then((response) => response.json())
     .then((data) => {
       // content要素の取得と更新
+      const todayData = data.today;
+
+      const dateToday = document.getElementById("dateToday");
+      if (dateToday) {
+        dateToday.innerHTML = "";
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+
+        const dateParagraph = document.createElement("p");
+        dateParagraph.className = "";
+        dateParagraph.textContent = `${year} / ${month} / ${day}`;
+        dateToday.appendChild(dateParagraph);
+      }
+
       const content = document.getElementById("content");
       if (content) {
         content.innerHTML = "";
 
+        // `duration_hour` と `duration_minute` が存在しない場合にデフォルト値を設定
+        const durationHour = todayData.duration_hour || "00";
+        const durationMinute = todayData.duration_minute || "00";
+
         // 学習時間を表示する要素を作成
         const timeParagraph = document.createElement("p");
         timeParagraph.className = "report-totaltime"; // クラス名を設定
-        timeParagraph.textContent = `Total: ${data.duration_hour}時間 ${data.duration_minute}分`;
+        timeParagraph.textContent = `Total: ${durationHour}時間 ${durationMinute}分`;
         content.appendChild(timeParagraph);
       }
 
@@ -20,7 +41,7 @@ function fetchDataAndUpdate() {
         taskContainer.innerHTML = "";
 
         // タスクのリストを生成
-        data.tasks.forEach((task, index) => {
+        todayData.tasks.forEach((task, index) => {
           const taskDiv = document.createElement("div");
           taskDiv.className = "report-task"; // タスクコンテナのクラス名
 
@@ -97,7 +118,7 @@ function fetchDataAndUpdate() {
         // 学習時間を表示する要素を作成
         const userParagraph = document.createElement("p");
         userParagraph.className = ""; // クラス名を設定
-        userParagraph.textContent = `${data.user.name}`;
+        userParagraph.textContent = `${todayData.user.name}`;
         userContent.appendChild(userParagraph);
       }
     })
