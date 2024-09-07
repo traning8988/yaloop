@@ -16,6 +16,18 @@ export function graphToday() {
         )
       );
 
+      // データを大きい順にソート
+      const sortedData = labels
+        .map((label, index) => ({
+          label: label,
+          data: datasetData[index],
+        }))
+        .sort((a, b) => b.data - a.data);
+
+      // ソート後のラベルとデータセット
+      const sortedLabels = sortedData.map((item) => item.label);
+      const sortedDatasetData = sortedData.map((item) => item.data);
+
       const colors = [
         "rgba(255, 99, 132, 0.8)",
         "rgba(54, 162, 235, 0.8)",
@@ -29,9 +41,9 @@ export function graphToday() {
 
       const datas = {
         labels: [``],
-        datasets: labels.map((label, index) => ({
+        datasets: sortedLabels.map((label, index) => ({
           label: label,
-          data: [datasetData[index]], // 各タスクのデータ
+          data: [sortedDatasetData[index]], // ソート後の各タスクのデータ
           backgroundColor: colors[index % colors.length],
         })),
       };
