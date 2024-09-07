@@ -1,4 +1,5 @@
 import { graphToday } from "./graphToday.js";
+import { graphMonth } from "./graphMonth.js";
 
 // 各ページの要素を取得
 const page1 = document.getElementById("page1");
@@ -27,6 +28,7 @@ document.getElementById("btnPage1").addEventListener("click", function () {
 
 document.getElementById("btnPage2").addEventListener("click", function () {
   showPage(page2);
+  graphMonth();
 });
 
 document.getElementById("btnPage3").addEventListener("click", function () {

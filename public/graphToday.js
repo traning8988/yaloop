@@ -28,7 +28,7 @@ export function graphToday() {
       ];
 
       const datas = {
-        labels: [`${today.getMonth() + 1}/${today.getDate()}`],
+        labels: [``],
         datasets: labels.map((label, index) => ({
           label: label,
           data: [datasetData[index]], // 各タスクのデータ
@@ -40,7 +40,7 @@ export function graphToday() {
         plugins: {
           title: {
             display: true,
-            text: "学習時間",
+            text: [`${today.getMonth() + 1}/${today.getDate()}の学習時間`],
           },
           tooltip: {
             intersect: false,
@@ -79,7 +79,7 @@ export function graphToday() {
             },
             title: {
               display: true,
-              text: "",
+              text: "時間 (h)",
             },
           },
         },
