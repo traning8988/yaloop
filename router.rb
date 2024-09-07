@@ -27,7 +27,7 @@ class Router
       serve_file("public#{request.path}", 'text/css', response)
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
-    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js'
+    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/graphToday.js'
       serve_file("public#{request.path}", 'application/javascript', response)
     when '/data'
       response.body = JSON.generate(@duration)

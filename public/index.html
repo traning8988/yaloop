@@ -40,11 +40,15 @@
                     </div>
                 </div>
                 <!-- グラフ -->
-                <h1 id="text">ここをクリックで文字が変わります</h1>
-                <button id="changeTextButton">文字を変える</button>
                 <div class="graph-container">
                     <div style="width: 80%; margin: auto;">
-                        <canvas id="stackedBarChart" height="250"></canvas>
+                        <button id="btnPage1">ページ1を表示</button>
+                        <button id="btnPage2">ページ2を表示</button>
+                        <button id="btnPage3">ページ3を表示</button>
+
+                        <div id="page1" class="page"><canvas id="stackedBarChart" height="250"></canvas></div>
+                        <div id="page2" class="page hidden">ページ2のコンテンツ</div>
+                        <div id="page3" class="page hidden">ページ3のコンテンツ</div>
                     </div>
                 </div>
             </div>
@@ -87,9 +91,10 @@
     </main>
 
     <script src="script.js"></script>
-    <script src="graph.js"></script>
+    <script type="module" src="graph.js"></script>
     <script src="textarea.js"></script>
     <script type="module" src="reports.js" defer></script>
+    <script src="aaa.js"></script>
     <script>
         function restartServer() {
             fetch('/restart', { method: 'POST' })

@@ -1,9 +1,34 @@
-// 文字を変える関数
-function changeText() {
-  document.getElementById("text").innerHTML =
-    "スクリプト1の関数が実行されました！";
+import { graphToday } from "./graphToday.js";
+
+// 各ページの要素を取得
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+const page3 = document.getElementById("page3");
+
+// ページを表示・非表示にする関数
+function showPage(pageToShow) {
+  // すべてのページを非表示にする
+  page1.classList.add("hidden");
+  page2.classList.add("hidden");
+  page3.classList.add("hidden");
+
+  // 指定されたページを表示する
+  pageToShow.classList.remove("hidden");
 }
 
-document
-  .getElementById("changeTextButton")
-  .addEventListener("click", changeText);
+document.addEventListener("DOMContentLoaded", () => {
+  graphToday();
+});
+// ボタンのクリックイベントに関数を割り当て
+document.getElementById("btnPage1").addEventListener("click", function () {
+  showPage(page1);
+  graphToday();
+});
+
+document.getElementById("btnPage2").addEventListener("click", function () {
+  showPage(page2);
+});
+
+document.getElementById("btnPage3").addEventListener("click", function () {
+  showPage(page3);
+});

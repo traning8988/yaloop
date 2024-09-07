@@ -43,14 +43,11 @@ header {
   cursor: pointer;
 }
 
-
 .nav {
   display: inline;
   flex-direction: column;
-
 }
 .navi p {
-
   color: var(--black);
   font-size: medium;
   font-weight: bolder;
@@ -58,7 +55,6 @@ header {
 }
 
 .navi button {
-
   color: var(--black);
   font-size: medium;
   font-weight: bolder;
@@ -108,4 +104,8 @@ footer small {
 
 #user-name {
   color: var(--black);
+}
+
+.hidden {
+  display: none;
 }
