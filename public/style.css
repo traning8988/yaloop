@@ -11,6 +11,16 @@
   --border-value: 1px solid #a7a5a2;
 }
 
+#buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
 body {
   font-family: "Sen", sans-serif;
   box-sizing: border-box;
