@@ -122,6 +122,7 @@ def fetch_total_times
     times
   WHERE
     start_time >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+    AND start_time < CURDATE() + INTERVAL 1 DAY
   GROUP BY
     DATE(start_time)
   ORDER BY
