@@ -42,7 +42,11 @@
                 <!-- グラフ -->
                 <div class="graph-container">
                     <div style="width: 80%; margin: auto;">
-                        <canvas id="stackedBarChart" height="250"></canvas>
+                        <button id="btnPage1">Today</button>
+                        <button id="btnPage2">Month</button>
+
+                        <div id="page1" class="page"><canvas id="stackedBarChart" height="250"></canvas></div>
+                        <div id="page2" class="page hidden"><canvas id="totalTimeChart" height="250"></canvas></div>
                     </div>
                 </div>
             </div>
@@ -51,7 +55,7 @@
                 <button id="prev">前へ</button>
                 <div class="report-container">
                     <div class="report-top">
-                        <p id="date" class="report-date"> 2024 / 7 / 31</p>
+                        <p id="dateToday" class="report-date"> 2024 / 7 / 31</p>
                         <p id="content" class="report-totaltime">学習時間: 00時間 00分</p>
                         <!-- <p class="report-totaltime">total time: 07:30</p> -->
                     </div>
@@ -89,7 +93,7 @@
 
     <script src="idChange.js"></script>
     <script src="script.js"></script>
-    <script src="graph.js"></script>
+    <script type="module" src="graph.js"></script>
     <script src="textarea.js"></script>
     <script src="save.js" defer></script>
     <script type="module" src="reports.js" defer></script>

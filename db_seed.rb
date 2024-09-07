@@ -29,15 +29,51 @@ def insert_dummy_data(client)
     end
     puts "日次タスクデータを挿入しました。"
 
-    # 時間データの挿入（重複しないように）
-    base_time = Time.new(Time.now.year, Time.now.month, Time.now.day - 1, 20, 0, 0)  # 9:00 AM から開始
-    5.times do |i|
-      task_id = i + 1
-      start_time = base_time + (60 * 150)  # 2.5hずつずらす
-      end_time = start_time + (60 * 120)
-      client.query("INSERT INTO times (start_time, end_time, tasks_id) VALUES ('#{start_time.strftime('%Y-%m-%d %H:%M:%S')}', '#{end_time.strftime('%Y-%m-%d %H:%M:%S')}', #{task_id})")
-      base_time = end_time + (60 * 120)  # 次のタスクの開始時間を設定
+    # 時間データの挿入（重複しないように、8/1-9/10まで）
+    # 開始日と終了日を設定
+    # 開始日と終了日を設定
+    start_date = Date.parse('2024-08-01')
+    end_date = Date.parse('2024-09-10')
+
+    # データ生成のループ
+    while start_date <= end_date
+      # その日の時間帯を格納する配列
+      time_slots = []
+      total_minutes = 0
+
+      while time_slots.size < 4 && total_minutes < 14 * 60 do
+        loop do
+          # ランダムな時間を生成
+          start_hour = rand(24)
+          start_minute = rand(60)
+          end_hour = rand(24)
+          end_minute = rand(60)
+
+          # start_time と end_time を作成
+          start_time = Time.local(start_date.year, start_date.month, start_date.day, start_hour, start_minute, 0)
+          end_time = Time.local(start_date.year, start_date.month, start_date.day, end_hour, end_minute, 0)
+
+          # end_time が start_time より遅く、time_slots に重複がない場合
+          if end_time > start_time && time_slots.none? { |slot| (slot[:start] <= end_time && slot[:end] >= start_time) }
+            duration = (end_time - start_time) / 60 # 学習時間（分）
+            if (total_minutes + duration) <= (14 * 60) # 最大14時間まで
+              time_slots << { start: start_time, end: end_time }
+              total_minutes += duration
+              break
+            end
+          end
+        end
+      end
+
+      # データを挿入
+      time_slots.each do |slot|
+        task_id = rand(1..4)
+        client.query("INSERT INTO times (start_time, end_time, tasks_id) VALUES ('#{slot[:start].strftime('%Y-%m-%d %H:%M:%S')}', '#{slot[:end].strftime('%Y-%m-%d %H:%M:%S')}', #{task_id})")
+      end
+
+      start_date += 1
     end
+
     puts "時間データを挿入しました。"
 
   rescue Mysql2::Error => e
@@ -55,6 +91,7 @@ begin
 
   # 仮データの挿入
   client.query("INSERT INTO users (name, email) VALUES ('阿川', 'agawa@example.com')")
+  # サンプルデータを挿入
   # insert_dummy_data(client)
 
   # テーブル構造とデータの確認
