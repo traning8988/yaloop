@@ -27,7 +27,7 @@ class Router
       serve_file("public#{request.path}", 'text/css', response)
     when '/graph-image.png'
       serve_file('public/graph-image.png', 'image/png', response, binary: true)
-    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/save.js', '/graphToday.js', '/graphMonth.js'
+    when '/reports.js', '/script.js', '/graph.js', '/countUp.js', '/textarea.js', '/save.js', '/graphToday.js', '/graphMonth.js', '/dummy.js'
       serve_file("public#{request.path}", 'application/javascript', response)
     when '/data'
       response.body = JSON.generate(@duration)
@@ -70,6 +70,12 @@ class Router
       description = data['description']
       date = data['date']
       result = save_report(description, date)
+      response.body = JSON.generate({ status: result ? 'success' : 'error' })
+      response['Content-Type'] = 'application/json'
+    when '/add_record'
+      data = JSON.parse(request.body)
+      task = data['task']
+      result = add_record(task)
       response.body = JSON.generate({ status: result ? 'success' : 'error' })
       response['Content-Type'] = 'application/json'
     else
@@ -184,7 +190,7 @@ class Router
         puts "Updating report with ID: #{daily_report_id}"
         @db.query("
           UPDATE daily_reports
-          SET description = '#{@db.escape(description)}', updated_at = '#{time.strftime('%Y-%m-%d %H:%M:%S')}'
+          SET description = '#{@db.escape(description)}', updated_at = '#{sample_created_at}'
           WHERE id = #{daily_report_id}
         ")
       else
@@ -193,7 +199,7 @@ class Router
         puts "Inserting new report"
         @db.query("
           INSERT INTO daily_reports (user_id, description, created_at, updated_at)
-          VALUES (1, '#{@db.escape(description)}', '#{sample_created_at}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')
+          VALUES (1, '#{@db.escape(description)}', '#{sample_created_at}', '#{sample_created_at}')
         ")
       end
 
@@ -206,4 +212,51 @@ class Router
       false
     end
   end
+
+  def add_record(task)
+    begin
+      time = Time.now - (4 * 60 * 60)
+
+      @db.query("BEGIN") # トランザクション開始
+
+      # tasksテーブルに挿入
+      @db.query("INSERT INTO tasks (title, created_at, updated_at) VALUES ('#{task}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
+      task_id = @db.last_id
+
+      # timesテーブルに挿入
+      @db.query("INSERT INTO times (start_time, tasks_id, end_time, created_at, updated_at) VALUES ('#{time.strftime('%Y-%m-%d 00:00:00')}', #{task_id}, '#{time.strftime('%Y-%m-%d 02:00:00')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
+
+      # daily_reportsテーブルに挿入
+      beginning_of_day = time.strftime('%Y-%m-%d 00:00:00')
+      end_of_day = time.strftime('%Y-%m-%d 23:59:59')
+
+      existing_report = @db.query("
+        SELECT id FROM daily_reports
+        WHERE user_id = 1
+        AND created_at >= '#{beginning_of_day}'
+        AND created_at <= '#{end_of_day}'
+      ").first
+
+      if existing_report
+        daily_report_id = existing_report['id']
+      else
+        @db.query("
+          INSERT INTO daily_reports (user_id, created_at, updated_at)
+          VALUES (1, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')
+        ")
+        daily_report_id = @db.last_id
+      end
+
+      # daily_tasksテーブルに挿入
+      @db.query("INSERT INTO daily_tasks (tasks_id, daily_reports_id, created_at, updated_at) VALUES (#{task_id}, #{daily_report_id}, '#{time.strftime('%Y-%m-%d %H:%M:%S')}', '#{time.strftime('%Y-%m-%d %H:%M:%S')}')")
+
+      @db.query("COMMIT") # トランザクションのコミット
+      true
+    rescue Mysql2::Error => e
+      puts "データベースエラー: #{e.message}"
+      @db.query("ROLLBACK") # エラー時にトランザクションをロールバック
+      false
+    end
+  end
+
 end
