@@ -10,6 +10,9 @@
   --black: #393939e1;
   --border-light: 1px solid #eaeaea;
   --border-value: 1px solid #a7a5a2;
+
+  --subblack: #969595e5;
+
 }
 
 .left-side {
@@ -52,8 +55,13 @@
   transition: box-shadow 0.3s ease; /* ホバー時の影の変化をスムーズに */
 }
 
-button:hover {
+.timer-button:hover {
   box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
+}
+
+.timer-button:active {
+  transform: translateY(2px); /* クリック時にボタンが押し込まれたような動き */
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2); /* 影を小さくして凹んだ感を出す */
 }
 
 .timer-display {
@@ -96,4 +104,31 @@ button:hover {
 .graph-display img {
   width: auto;
   height: 350px;
+}
+
+#btnPage1, #btnPage2 {
+  background-color: var( --subblack);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+
+#btnPage1:hover {
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
+}
+
+#btnPage2:hover {
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
+}
+
+#btnPage1:active {
+  transform: translateY(2px); /* クリック時にボタンが押し込まれたような動き */
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2); /* 影を小さくして凹んだ感を出す */
+}
+
+#btnPage2:active {
+  transform: translateY(2px); /* クリック時にボタンが押し込まれたような動き */
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2); /* 影を小さくして凹んだ感を出す */
 }
