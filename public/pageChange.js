@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if(date) {
         date.innerHTML = "";
         const dateParagraph = document.createElement("p");
-        dateParagraph.className = "report-date";
+        dateParagraph.className = "";
         dateParagraph.textContent = "today-data from JSON";
         date.appendChild(dateParagraph);
       }
@@ -177,8 +177,8 @@ document.addEventListener("DOMContentLoaded", function() {
       if(date) {
         date.innerHTML = "";
         const dateParagraph = document.createElement("p");
-        dateParagraph.className = "report-date";
-        dateParagraph.textContent = "yesterday-data from JSON";
+        dateParagraph.className = ""
+        dateParagraph.textContent = "2024/ 09 / 01";
         date.appendChild(dateParagraph);
       }
 
@@ -281,8 +281,8 @@ document.addEventListener("DOMContentLoaded", function() {
       if(date) {
         date.innerHTML = "";
         const dateParagraph = document.createElement("p");
-        dateParagraph.className = "report-date";
-        dateParagraph.textContent = "yesterday-data from JSON";
+        dateParagraph.className = "";
+        dateParagraph.textContent = "2024/ 09 / 01";
         date.appendChild(dateParagraph);
       }
 
@@ -503,13 +503,15 @@ document.addEventListener("DOMContentLoaded", function() {
       tdyBtn.style.display = 'inline-block'; // todayボタンを表示
     });
 
-    //Today(初期状態)が表示されているとき
+    
     nydBtn.addEventListener('click', function() {
-        dbyBtn.style.display = 'inline-block'; // dbYesterdayボタンを表示
+        dbyBtn.style.display = 'inline-block'; 
         pydBtn.style.display = 'none'; 
         nydBtn.style.display = 'none'; 
-        tdyBtn.style.display = 'inline-block'; // todayボタンを表示
+        tdyBtn.style.display = 'inline-block'; 
       });
+
+
 
     tdyBtn.addEventListener('click', function() {
         dbyBtn.style.display = 'none'; 

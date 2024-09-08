@@ -49,9 +49,15 @@
   align-items: center;
 }
 
+.change-btn {
+  background-color: var(--gray);
+
+}
+
 .report-date {
   color: var(--black);
-  margin: 8px auto;
+  margin: 12px auto;
+  padding: 0px 12px;
   font-size: 20px;
 }
 
@@ -167,9 +173,10 @@ textarea {
 }
 
 .submit-button button {
-  margin: 10px;
+  margin-top: 30px;
   width: 140px;
   height: 50px;
+  
   font-size: larger;
   color: white;
   border-radius: 30px; 
