@@ -43,6 +43,12 @@
   align-items: center;
 }
 
+.top-ui {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .report-date {
   color: var(--black);
   margin: 8px auto;
