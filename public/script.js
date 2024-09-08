@@ -107,7 +107,7 @@ function fetchDataAndUpdate() {
         // 学習時間を表示する要素を作成
         const reportParagraph = document.createElement("p");
         reportParagraph.className = ""; // クラス名を設定
-        reportParagraph.textContent = `${data.description}`;
+        reportParagraph.textContent = `${todayData.description}`;
         reportContent.appendChild(reportParagraph);
       }
 
