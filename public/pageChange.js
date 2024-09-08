@@ -79,6 +79,14 @@ const data = {
 //       console.log(selectData.duration_hour);
 //       console.log(selectData.duration_minute);
 
+      // const date = document.getElementById("dateToday");
+      // if(date) {
+      //   date.innerHTML = "";
+      //   const dateParagraph = document.createElement("p");
+      //   dateParagraph.className = "";
+      //   dateParagraph.textContent = "today-data from JSON";
+      //   date.appendChild(dateParagraph);
+      // }
 //       const date = document.getElementById("dateToday");
 //       if(date) {
 //         date.innerHTML = "";
@@ -182,6 +190,14 @@ const data = {
 //       console.log(selectData.duration_hour);
 //       console.log(selectData.duration_minute);
 
+      // const date = document.getElementById("dateToday");
+      // if(date) {
+      //   date.innerHTML = "";
+      //   const dateParagraph = document.createElement("p");
+      //   dateParagraph.className = ""
+      //   dateParagraph.textContent = "2024/ 09 / 01";
+      //   date.appendChild(dateParagraph);
+      // }
 //       const date = document.getElementById("dateToday");
 //       if(date) {
 //         date.innerHTML = "";
@@ -284,6 +300,14 @@ const data = {
 //       console.log(selectData.duration_hour);
 //       console.log(selectData.duration_minute);
 
+      // const date = document.getElementById("dateToday");
+      // if(date) {
+      //   date.innerHTML = "";
+      //   const dateParagraph = document.createElement("p");
+      //   dateParagraph.className = "";
+      //   dateParagraph.textContent = "2024/ 09 / 01";
+      //   date.appendChild(dateParagraph);
+      // }
 //       const date = document.getElementById("dateToday");
 //       if(date) {
 //         date.innerHTML = "";
@@ -505,6 +529,13 @@ const data = {
 //       tdyBtn.style.display = 'inline-block'; // todayボタンを表示
 //     });
 
+    
+    // nydBtn.addEventListener('click', function() {
+    //     dbyBtn.style.display = 'inline-block'; 
+    //     pydBtn.style.display = 'none'; 
+    //     nydBtn.style.display = 'none'; 
+    //     tdyBtn.style.display = 'inline-block'; 
+    //   });
 //     //Today(初期状態)が表示されているとき
 //     nydBtn.addEventListener('click', function() {
 //         dbyBtn.style.display = 'inline-block'; // dbYesterdayボタンを表示

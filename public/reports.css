@@ -49,9 +49,16 @@
   align-items: center;
 }
 
+.change-btn {
+  background-color: var(--gray);
+  cursor: pointer;
+
+}
+
 .report-date {
   color: var(--black);
-  margin: 8px auto;
+  margin: 12px auto;
+  padding: 0px 12px;
   font-size: 20px;
 }
 
@@ -167,9 +174,10 @@ textarea {
 }
 
 .submit-button button {
-  margin: 10px;
+  margin-top: 30px;
   width: 140px;
   height: 50px;
+  
   font-size: larger;
   color: white;
   border-radius: 30px; 
@@ -179,10 +187,14 @@ textarea {
   transition: box-shadow 0.3s ease; /* ホバー時の影の変化をスムーズに */
 }
 
-button:hover {
+.submit-button button:hover {
   box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
 }
 
+.submit-button button:active {
+  transform: translateY(2px); /* クリック時にボタンが押し込まれたような動き */
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2); /* 影を小さくして凹んだ感を出す */
+}
 
 
 
